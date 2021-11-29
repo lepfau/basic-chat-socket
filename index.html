@@ -60,9 +60,10 @@
     <p id="yo"></p>
     <form id="form" action="">
       <input id="username" />
-      <input id="input" autocomplete="off" /><button>Send</button>
+      <input id="input" autocomplete="off" />
+      <button>Send</button>
     </form>
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.socket.io/4.4.0/socket.io.min.js" integrity="sha384-1fOn6VtTq3PWwfsOrk45LnYcGosJwzMHv+Xh/Jx5303FVOXzEnw0EpLv30mtjmlj" crossorigin="anonymous"></script>
 
     <script>
       var socket = io();
@@ -71,19 +72,28 @@
       var messages = document.getElementById("messages");
       var form = document.getElementById("form");
       var input = document.getElementById("input");
-     
+      var username = document.getElementById("username")
+   
+      socket.emit("new user", `New user connected`);
+  
       form.addEventListener("submit", function (e) {
         e.preventDefault();
         if (input.value) {
-          socket.emit("chat message", `${username.value || "Stranger"} dit: ${input.value}`);
+          socket.emit(
+          "chat message",
+            `${username.value || "Stranger"} dit: ${input.value}`
+          );
           input.value = "";
         }
       });
 
       input.addEventListener("input", function () {
-          socket.emit("user typing", `${username.value || "Stranger"} is typing...`);
-        });
-     
+        socket.emit(
+          "user typing",
+          `${username.value || "Stranger"} is typing...`
+        );
+      });
+
       socket.on("chat message", function (msg) {
         var item = document.createElement("li");
         item.textContent = msg;
@@ -91,10 +101,16 @@
         yo.innerHTML = "";
       });
 
-     socket.on("user typing", function (typi) {
-        yo.innerHTML = typi;
+      socket.on("new user", function (newuser) {
+        var item = document.createElement("li");
+        item.textContent = newuser;
+        messages.appendChild(item);
       });
 
+
+      socket.on("user typing", function (typi) {
+        yo.innerHTML = typi;
+      });
     </script>
   </body>
 </html>
