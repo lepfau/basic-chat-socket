@@ -25,12 +25,6 @@ io.on('connection', (socket) => {
   });
 });
 
-io.on('connection', (socket) => {
-  socket.on('user name', username => {
-    io.emit('user name', username );
-  });
-});
-
 io.on("connection", (socket) => {
   socket.on("user typing", typi => {
     socket.broadcast.emit("user typing", typi)
