@@ -75,7 +75,8 @@
       var username = document.getElementById("username")
    
       socket.emit("new user", `New user connected`);
-  
+
+   
       form.addEventListener("submit", function (e) {
         e.preventDefault();
         if (input.value) {
@@ -107,7 +108,7 @@
         messages.appendChild(item);
       });
 
-
+  
       socket.on("user typing", function (typi) {
         yo.innerHTML = typi;
       });
