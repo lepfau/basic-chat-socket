@@ -120,6 +120,7 @@
         if (username.value && username.value !== " ") {
           form1.style.visibility = "hidden";
           socket.emit("new user", `${username.value} is connected`);
+          socket.emit("add user", username.value)
         }
       });
 
@@ -144,6 +145,8 @@
       socket.on("user typing", function (typi) {
         yo.innerHTML = typi;
       });
+
+      
     </script>
   </body>
 </html>

@@ -14,8 +14,13 @@ io.on('connection', (socket) => {
     socket.broadcast.emit("new user", newuser)
   })
 
+  socket.on("add user", (user) => {
+    socket.emit("add user", user)
+    socket.username = user
+  })
+
   socket.on('disconnect', () => {
-    io.emit('chat message', 'a user disconnected');
+    io.emit('chat message', `${socket.username} has left the chat`);
   });
 
   socket.on('chat message', msg => {
@@ -28,8 +33,6 @@ io.on('connection', (socket) => {
   })
 
 });
-
-
 
 
 http.listen(port, () => {
