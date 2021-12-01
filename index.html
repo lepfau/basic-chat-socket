@@ -21,6 +21,28 @@
         box-sizing: border-box;
         backdrop-filter: blur(10px);
       }
+
+      #form1 {
+        height: 100vh;
+        width: 100%;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        z-index: 2;
+        top: 0;
+        background-color: black;
+        visibility: visible;
+        flex-direction: column;
+      }
+
+      #username {
+        width: 50%;
+        text-align: center;
+        height: 50px;
+      }
+
       #input {
         border: none;
         padding: 0 1rem;
@@ -56,14 +78,22 @@
   </head>
   <body>
     <!-- <input type="text" id="nick"></input> -->
+    <ul id="users"></ul>
     <ul id="messages"></ul>
     <p id="yo"></p>
-    <form id="form" action="">
+    <form id="form1" action="">
       <input id="username" />
+      <button>Enter chat room</button>
+    </form>
+    <form id="form" action="">
       <input id="input" autocomplete="off" />
       <button>Send</button>
     </form>
-    <script src="https://cdn.socket.io/4.4.0/socket.io.min.js" integrity="sha384-1fOn6VtTq3PWwfsOrk45LnYcGosJwzMHv+Xh/Jx5303FVOXzEnw0EpLv30mtjmlj" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.socket.io/4.4.0/socket.io.min.js"
+      integrity="sha384-1fOn6VtTq3PWwfsOrk45LnYcGosJwzMHv+Xh/Jx5303FVOXzEnw0EpLv30mtjmlj"
+      crossorigin="anonymous"
+    ></script>
 
     <script>
       var socket = io();
@@ -71,28 +101,31 @@
       var yo = document.getElementById("yo");
       var messages = document.getElementById("messages");
       var form = document.getElementById("form");
+      var form1 = document.getElementById("form1");
       var input = document.getElementById("input");
-      var username = document.getElementById("username")
-   
-      socket.emit("new user", `New user connected`);
+      var username = document.getElementById("username");
+      let userslisting = document.getElementById("users");
+      let userList;
 
-   
       form.addEventListener("submit", function (e) {
         e.preventDefault();
         if (input.value) {
-          socket.emit(
-          "chat message",
-            `${username.value || "Stranger"} dit: ${input.value}`
-          );
+          socket.emit("chat message", `${username.value} dit: ${input.value}`);
           input.value = "";
         }
       });
 
+      form1.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (username.value && username.value !== " ") {
+          form1.style.visibility = "hidden";
+          socket.emit("new user", `${username.value} is connected`);
+        }
+      });
+
       input.addEventListener("input", function () {
-        socket.emit(
-          "user typing",
-          `${username.value || "Stranger"} is typing...`
-        );
+        socket.emit("user typing", `${username.value} is typing...`);
+        console.log(userList);
       });
 
       socket.on("chat message", function (msg) {
@@ -108,7 +141,6 @@
         messages.appendChild(item);
       });
 
-  
       socket.on("user typing", function (typi) {
         yo.innerHTML = typi;
       });
