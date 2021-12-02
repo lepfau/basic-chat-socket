@@ -97,7 +97,6 @@
 
     <script>
       var socket = io();
-
       var yo = document.getElementById("yo");
       var messages = document.getElementById("messages");
       var form = document.getElementById("form");
@@ -105,7 +104,8 @@
       var input = document.getElementById("input");
       var username = document.getElementById("username");
       let userslisting = document.getElementById("users");
-      let userList;
+      let userList = [];
+      let receivedList = [];
 
       form.addEventListener("submit", function (e) {
         e.preventDefault();
@@ -119,15 +119,15 @@
         e.preventDefault();
         if (username.value && username.value !== " ") {
           form1.style.visibility = "hidden";
-          socket.emit("new user", `${username.value} is connected`);
-          socket.emit("add user", username.value)
+          socket.emit("add user", username.value);
+          socket.emit("new user", username.value);
+          socket.emit("user list", userList);
         }
       });
 
       input.addEventListener("input", function () {
         socket.emit("user typing", `${username.value} is typing...`);
-        console.log(userList);
-      });
+            });
 
       socket.on("chat message", function (msg) {
         var item = document.createElement("li");
@@ -136,17 +136,32 @@
         yo.innerHTML = "";
       });
 
-      socket.on("new user", function (newuser) {
-        var item = document.createElement("li");
-        item.textContent = newuser;
-        messages.appendChild(item);
-      });
-
       socket.on("user typing", function (typi) {
         yo.innerHTML = typi;
       });
 
-      
+      socket.on("user list", function (userlistfromback) {
+        userslisting.innerHTML = "";
+        var items = userslisting.getElementsByTagName("li");
+        userlistfromback.forEach((el) => {
+          var item = document.createElement("li");
+          item.textContent = el;
+          userslisting.appendChild(item);
+        });
+      });
+
+      socket.on("disconnect", function () {
+        userslisting.innerHTML = "";
+        let filtered = userList.filter(user => user !== username.value);
+          socket.emit("user list", filtered);
+      })
+
+      socket.on("new user", function (username) {
+        var item = document.createElement("li");
+        item.textContent = username;
+        messages.appendChild(item);
+        socket.emit("user list", userList);
+      });
     </script>
   </body>
 </html>

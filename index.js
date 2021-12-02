@@ -10,18 +10,24 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  socket.on("new user", (newuser) => {
-    socket.broadcast.emit("new user", newuser)
+
+
+  socket.on("new user", (username) => {
+    socket.broadcast.emit("new user", `${username} has join the chat`)
   })
 
   socket.on("add user", (user) => {
     socket.emit("add user", user)
-    socket.username = user
+    users.push(user)
+    socket.username = user;
   })
 
-  socket.on('disconnect', () => {
-    io.emit('chat message', `${socket.username} has left the chat`);
-  });
+
+  socket.on("user list", (userlistfromback) => {
+    userlistfromback = users;
+    socket.emit("user list", userlistfromback)
+  })
+
 
   socket.on('chat message', msg => {
     io.emit('chat message', msg);
@@ -29,8 +35,16 @@ io.on('connection', (socket) => {
 
   socket.on("user typing", typi => {
     socket.broadcast.emit("user typing", typi)
-    console.log(users)
   })
+
+  
+  socket.on('disconnect', () => {
+    io.emit('chat message', `${socket.username} has left the chat`);
+    let filtered = users.filter(user => user !== socket.username);
+    users = filtered;
+    socket.emit("user list", filtered);
+    console.log(users)
+  });
 
 });
 
