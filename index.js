@@ -22,12 +22,10 @@ io.on('connection', (socket) => {
     socket.username = user;
   })
 
-
   socket.on("user list", (userlistfromback) => {
     userlistfromback = users;
     socket.emit("user list", userlistfromback)
   })
-
 
   socket.on('chat message', msg => {
     io.emit('chat message', msg);
@@ -37,14 +35,15 @@ io.on('connection', (socket) => {
     socket.broadcast.emit("user typing", typi)
   })
 
-  
+   
   socket.on('disconnect', () => {
     io.emit('chat message', `${socket.username} has left the chat`);
     let filtered = users.filter(user => user !== socket.username);
     users = filtered;
-    socket.emit("user list", filtered);
+    io.emit("filtered user", users)
+
     console.log(users)
-  });
+   });
 
 });
 

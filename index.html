@@ -150,11 +150,29 @@
         });
       });
 
-      socket.on("disconnect", function () {
-        userslisting.innerHTML = "";
-        let filtered = userList.filter(user => user !== username.value);
-          socket.emit("user list", filtered);
-      })
+     socket.on("updated list", function (updatedlist) {
+       userslisting.innerHTML = "";
+       var items = userslisting.getElementsByTagName("li");
+        updatedlist.forEach((el) => {
+          var item = document.createElement("li");
+          item.textContent = el;
+          userslisting.appendChild(item);
+        });
+     })
+
+     socket.on("disconnect", () => {
+       socket.emit("updated list", userList)
+     })
+
+     socket.on("filtered user", (users) => {
+      userslisting.innerHTML = "";
+       var items = userslisting.getElementsByTagName("li");
+        users.forEach((el) => {
+          var item = document.createElement("li");
+          item.textContent = el;
+          userslisting.appendChild(item);
+        });
+     })
 
       socket.on("new user", function (username) {
         var item = document.createElement("li");
