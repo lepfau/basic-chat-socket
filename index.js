@@ -1,13 +1,13 @@
 const app = require('express')();
+const express = require('express')
 const http = require('http').Server(app);
-
+const path = require('path');
 const port = process.env.PORT || 3000;
 
 const io = require("socket.io")(http, {
   cors: {
     origin: port,
     methods: ["GET", "POST"],
-    
     credentials: true
   }
 });
@@ -15,12 +15,16 @@ const io = require("socket.io")(http, {
 
 let users = [];
 
+let team1 = [];
+let team2 = [];
+
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
 io.on('connection', (socket) => {
-
 
   socket.on("new user", (username) => {
     socket.broadcast.emit("new user", `${username} has join the chat`)
@@ -30,6 +34,11 @@ io.on('connection', (socket) => {
     socket.emit("add user", user)
     users.push(user)
     socket.username = user;
+  })
+
+  socket.on("choose team", (user, team) => {
+    socket.emit("choose team", user, team)
+    team === "team1" ? team1.push(user) : team2.push(user);
   })
 
   socket.on("user list", (userlistfromback) => {
