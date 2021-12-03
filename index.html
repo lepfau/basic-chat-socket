@@ -112,7 +112,16 @@
     ></script>
 
     <script>
-      var socket = io();
+
+const socket = io("https://murmuring-springs-66018.herokuapp.com", {
+  withCredentials: true,
+  extraHeaders: {
+    "my-custom-header": "abcd"
+  }
+});
+
+     
+
       var fullcontainer = document.getElementById("full_container")
       var yo = document.getElementById("yo");
       var messages = document.getElementById("messages");
