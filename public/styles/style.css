@@ -18,6 +18,10 @@ body {
     backdrop-filter: blur(10px);
   }
 
+  .labelteam {
+    color: white;
+  }
+
   #form1 {
     height: 100vh;
     width: 100%;

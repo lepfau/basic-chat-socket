@@ -34,11 +34,14 @@ io.on('connection', (socket) => {
     socket.emit("add user", user)
     users.push(user)
     socket.username = user;
+    console.log("team1: " + team1)
+    console.log("team2: " + team2)
   })
 
-  socket.on("choose team", (user, team) => {
-    socket.emit("choose team", user, team)
-    team === "team1" ? team1.push(user) : team2.push(user);
+  socket.on("choose team", ({username: user, teamnumber: team}) => {
+    socket.emit("choose team", {user: user, team: team})
+    if(team === "team1") team1.push(user)
+    else team2.push(user)
   })
 
   socket.on("user list", (userlistfromback) => {
@@ -46,9 +49,19 @@ io.on('connection', (socket) => {
     socket.emit("user list", userlistfromback)
   })
 
+  socket.on("team1 list", (team1listfromback) => {
+    team1listfromback = team1;
+    socket.emit("team1 list", team1listfromback)
+  })
+
+  socket.on("team2 list", (team2listfromback) => {
+    team2listfromback = team2;
+    socket.emit("team2 list", team2listfromback)
+  })
+
   socket.on('chat message', msg => {
     io.emit('chat message', msg);
-  });
+    });
 
   socket.on("user typing", typi => {
     socket.broadcast.emit("user typing", typi)
@@ -60,6 +73,15 @@ io.on('connection', (socket) => {
     let filtered = users.filter(user => user !== socket.username);
     users = filtered;
     io.emit("filtered user", users)
+
+    let filtered2 = team1.filter(user => user !== socket.username )
+    team1 = filtered2;
+    io.emit("filtered team1", team1)
+
+    let filtered3 = team2.filter(user => user !== socket.username )
+    team2 = filtered3;
+    io.emit("filtered team2", team2)
+
 
     console.log(users)
    });

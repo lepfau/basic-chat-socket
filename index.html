@@ -8,10 +8,20 @@
   <body>
     <form id="form1" action="">
       <input id="username" />
+      
+      <label class="labelteam" for="myCheck1">team 1</label>
+      <input type="checkbox" id="myCheck1" value="team1">  
+      <label class="labelteam" for="myCheck2">team 2</label>
+      <input type="checkbox" id="myCheck2" value="team2">  
       <button>Enter chat room</button>
     </form>
     <div id="full_container">
-    <div class="user_list">
+    <div class="teams_list">
+      <h3>Team 1</h3>
+      <ul id="team1list"></ul>
+      <h3>Team 2</h3>
+      <ul id="team2list"></ul>
+      <div class="user_list"></div>
  <h3>Users online</h3>
     <ul id="users"></ul>
   </div>
