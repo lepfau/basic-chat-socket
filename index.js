@@ -73,9 +73,7 @@ io.on('connection', (socket) => {
 
   socket.on("user typing", typi => {
     socket.broadcast.emit("user typing", typi)
-    console.log("counter 1 : " + counter1)
-    console.log("counter 2 : " + counter2)
-  })
+     })
 
   socket.on("counter1", () => {
    counter1 += 5;
@@ -85,7 +83,6 @@ io.on('connection', (socket) => {
     counter2 += 5;
   })
 
-  
   socket.on("show counter1", (counterfromback1) => {
     counterfromback1 = counter1;
     io.emit("show counter1", counterfromback1)
@@ -95,6 +92,27 @@ io.on('connection', (socket) => {
     counterfromback2 = counter2;
     io.emit("show counter2", counterfromback2)
   })
+
+  socket.on("move hero1", (counterfromback1) => {
+    counterfromback1 = counter1;
+    io.emit("move hero1", counterfromback1)
+  })
+
+  socket.on("move hero2", (counterfromback2) => {
+    counterfromback2 = counter2;
+    io.emit("move hero2", counterfromback2)
+  })
+
+  socket.on("stop hero1", counterfromback1 => {
+    counterfromback1 = counter1;
+    io.emit("stop hero1", counterfromback1)
+  })
+
+  socket.on("stop hero2", counterfromback2 => {
+    counterfromback2 = counter2;
+    io.emit("stop hero2", counterfromback2)
+  })
+
 
   socket.on('disconnect', () => {
     io.emit('chat message', `${socket.username} has left the chat`);

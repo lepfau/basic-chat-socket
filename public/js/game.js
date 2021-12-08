@@ -77,8 +77,7 @@ function GameObject(spritesheet, x, y, width, height, timePerFrame, numberOfFram
 function loop() {
     update();
     draw();
-  
-}
+  }
 
 function loop2() {
     update();
@@ -100,24 +99,47 @@ function draw() {
 }
 
 
+var typingTimer;                //timer identifier
+var doneTypingInterval = 300;  //time in ms, 5 second for example
+
+
+
 inputtest.addEventListener("input", () => {
-    if (inputtest.value === "xc" && team1.checked) {
+
+
+   if (inputtest.value === "xc" && team1.checked) {
       inputtest.value = "";
       socket.emit("counter1")
       socket.emit("show counter1", counter1front)
+      socket.emit("move hero1", counter1front)
       socket.emit("show counter2", counter2front)
-
+    //   socket.emit("move hero2", counter2front)
     }
-    else if (inputtest.value === "xc" && team2.checked) {
+
+      else if (inputtest.value === "xc" && team2.checked) {
       inputtest.value = "";
       socket.emit("counter2")
       socket.emit("show counter1", counter1front)
+    //   socket.emit("move hero1", counter1front)
       socket.emit("show counter2", counter2front)
+      socket.emit("move hero2", counter2front)
     }
   
     else if (inputtest.value.length >= 3) inputtest.value = ""
-  
+   
   })
+
+  
+inputtest.addEventListener('keyup', function () {
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(doneTyping, doneTypingInterval);
+  });
+
+  function doneTyping() {
+      if(team1.checked) socket.emit("stop hero1", counter1front);
+      if(team2.checked) socket.emit("stop hero2", counter2front);
+
+  }
 
 
   

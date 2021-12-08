@@ -161,7 +161,11 @@ socket.on("show counter1", (counter) => {
   let item = document.createElement("p");
   item.innerText = counter
   countertag.appendChild(item);
-    canvas = document.getElementById("canvasHolder");
+
+})
+
+socket.on("move hero1", (counter) => {
+  canvas = document.getElementById("canvasHolder");
   context = canvas.getContext("2d");
   hero = new GameObject(heroSpritesheet,  //the spritesheet image
       counter,            //x position of hero
@@ -178,7 +182,11 @@ socket.on("show counter2", (counter) => {
   let item = document.createElement("p");
   item.innerText = counter
   countertag2.appendChild(item);
-    canvas = document.getElementById("canvasHolder");
+
+})
+
+socket.on("move hero2", (counter) => {
+  canvas = document.getElementById("canvasHolder");
   hero2 = new GameObject(heroSpritesheet2,  //the spritesheet image
     counter,            //x position of hero
     150,            //y position of hero
@@ -189,21 +197,29 @@ socket.on("show counter2", (counter) => {
 loop2();
 })
 
+socket.on("stop hero1", (counter) => {
+  canvas = document.getElementById("canvasHolder");
+  context = canvas.getContext("2d");
+  hero = new GameObject(heroSpritesheet,  //the spritesheet image
+      counter,            //x position of hero
+      0,            //y position of hero
+      864 ,         //total width of spritesheet image in pixels
+      140,          //total height of spritesheet image in pixels
+      100000,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
+      8);           //number of sprites in the spritesheet
+  loop();
+})
 
-// setInterval(() => {
-//   socket.emit("show counter1", counter1front)
-//   socket.emit("show counter2", counter2front)
-// }, 100);
+socket.on("stop hero2", (counter) => {
+  canvas = document.getElementById("canvasHolder");
+  hero2 = new GameObject(heroSpritesheet2,  //the spritesheet image
+    counter,            //x position of hero
+    150,            //y position of hero
+    1000 ,         //total width of spritesheet image in pixels
+    157,          //total height of spritesheet image in pixels
+    100000,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
+     8);           //number of sprites in the spritesheet
+loop2();
+} )
 
-// setInterval(() => {
-//   canvas = document.getElementById("canvasHolder");
-//   context = canvas.getContext("2d");
-//   hero = new GameObject(heroSpritesheet,  //the spritesheet image
-//       counter1front,            //x position of hero
-//       0,            //y position of hero
-//       1536 ,         //total width of spritesheet image in pixels
-//       256,          //total height of spritesheet image in pixels
-//       90,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
-//       6);           //number of sprites in the spritesheet
-//   loop();
-// }, 400);
+
