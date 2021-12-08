@@ -189,7 +189,4 @@ inputtest.addEventListener("input", () => {
 
 })
 
-setInterval(() => {
-  socket.emit("show counter1", counter1front)
-  socket.emit("show counter2", counter2front)
-}, 500);
+

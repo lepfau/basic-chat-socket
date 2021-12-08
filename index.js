@@ -109,12 +109,12 @@ io.on('connection', (socket) => {
   
   socket.on("show counter1", (counterfromback1) => {
     counterfromback1 = counter1;
-    socket.emit("show counter1", counterfromback1)
+    io.emit("show counter1", counterfromback1)
   })
 
   socket.on("show counter2", (counterfromback2) => {
     counterfromback2 = counter2;
-    socket.emit("show counter2", counterfromback2)
+    io.emit("show counter2", counterfromback2)
   })
 
   socket.on('disconnect', () => {
