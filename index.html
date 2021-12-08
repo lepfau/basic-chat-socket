@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Socket.IO chat</title>
-    <link rel="stylesheet" href="../styles/style.css" />
+    <link rel="stylesheet" href="/styles/style.css" />
   </head>
   <body>
     <canvas
@@ -56,15 +56,15 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      const socket = io("https://edbasicchat.herokuapp.com", {
+      const socket = io("http://localhost:3000", {
         withCredentials: true,
         extraHeaders: {
           "my-custom-header": "abcd",
         },
       });
     </script>
-    <script src="../js/main.js"></script>
-    <script src="../js/game.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/game.js"></script>
 
   }></script>
   </body>
