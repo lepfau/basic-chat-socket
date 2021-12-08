@@ -13,9 +13,17 @@ let team2listing = document.getElementById("team2list");
 let team1 = document.getElementById("myCheck1");
 let team2 = document.getElementById("myCheck2");
 
+let inputtest = document.getElementById("inputtest");
+
 let userList = [];
 let team1list = [];
 let team2list = [];
+let counter1front = 0;
+let counter2front = 0;
+let countertag = document.getElementById("countertag");
+let countertag2 = document.getElementById("countertag2")
+let pcounter1 = document.getElementById("pcounter1")
+let pcounter2 = document.getElementById("pcounter2")
 
 form.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -29,6 +37,7 @@ form1.addEventListener("submit", function (e) {
   e.preventDefault();
   if (username.value && username.value !== " ") {
     form1.style.visibility = "hidden";
+    
     fullcontainer.style.display = "block"
     if (team1.checked) socket.emit("choose team", { username: username.value, teamnumber: team1.value });
     else socket.emit("choose team", { username: username.value, teamnumber: team2.value })
@@ -37,7 +46,7 @@ form1.addEventListener("submit", function (e) {
     socket.emit("user list", userList);
     socket.emit("team1 list", team1list)
     socket.emit("team2 list", team2list)
-  }
+   }
 });
 
 
@@ -53,6 +62,7 @@ socket.on("chat message", function (msg) {
   yo.innerHTML = "";
 });
 
+
 socket.on("user typing", function (typi) {
   yo.innerHTML = typi;
 });
@@ -66,6 +76,7 @@ socket.on("user list", function (userlistfromback) {
     userslisting.appendChild(item);
   });
 });
+
 
 socket.on("team1 list", function (team1listfromback) {
   team1listing.innerHTML = "";
@@ -137,7 +148,48 @@ socket.on("new user", function (username) {
   socket.emit("user list", userList);
   socket.emit("team1 list", team1list)
   socket.emit("team2 list", team2list)
+
   window.scrollTo(0, document.body.scrollHeight);
 });
 
+//KEY SEQUENCE TEST
+///////////////////////////////////////////////////////////
 
+socket.on("show counter1", (counter) => {
+  countertag.innerHTML = "";
+  let item = document.createElement("p");
+  item.innerText = counter
+  countertag.appendChild(item);
+})
+
+socket.on("show counter2", (counter) => {
+  countertag2.innerHTML = "";
+  let item = document.createElement("p");
+  item.innerText = counter
+  countertag2.appendChild(item);
+})
+
+
+
+inputtest.addEventListener("input", () => {
+  if (inputtest.value === "xc" && team1.checked) {
+    inputtest.value = "";
+    socket.emit("counter1")
+    socket.emit("show counter1", counter1front)
+    socket.emit("show counter2", counter2front)
+  }
+  else if (inputtest.value === "xc" && team2.checked) {
+    inputtest.value = "";
+    socket.emit("counter2")
+    socket.emit("show counter1", counter1front)
+    socket.emit("show counter2", counter2front)
+  }
+
+  else if (inputtest.value.length >= 3) inputtest.value = ""
+
+})
+
+setInterval(() => {
+  socket.emit("show counter1", counter1front)
+  socket.emit("show counter2", counter2front)
+}, 500);

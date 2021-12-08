@@ -2,6 +2,7 @@ const app = require('express')();
 const express = require('express')
 const http = require('http').Server(app);
 const path = require('path');
+const { setInterval } = require('timers/promises');
 const port = process.env.PORT || 3000;
 
 const io = require("socket.io")(http, {
@@ -17,6 +18,9 @@ let users = [];
 
 let team1 = [];
 let team2 = [];
+
+let counter1 = 0;
+let counter2 = 0;
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -38,9 +42,9 @@ io.on('connection', (socket) => {
     console.log("team2: " + team2)
   })
 
-  socket.on("choose team", ({username: user, teamnumber: team}) => {
-    socket.emit("choose team", {user: user, team: team})
-    if(team === "team1") team1.push(user)
+  socket.on("choose team", ({ username: user, teamnumber: team }) => {
+    socket.emit("choose team", { user: user, team: team })
+    if (team === "team1") team1.push(user)
     else team2.push(user)
   })
 
@@ -48,6 +52,19 @@ io.on('connection', (socket) => {
     userlistfromback = users;
     socket.emit("user list", userlistfromback)
   })
+
+  
+  //   setInterval(function(counterfromback1){
+  //     counterfromback1 = counter1;
+  //     socket.emit('show counter1', counterfromback1); 
+  // }, 100);
+
+  
+
+  // socket.on("show counter2", (counterfromback2) => {
+  //   counterfromback2 = counter2;
+  //   socket.emit("show counter", counterfromback2)
+  // })
 
   socket.on("team1 list", (team1listfromback) => {
     team1listfromback = team1;
@@ -61,30 +78,62 @@ io.on('connection', (socket) => {
 
   socket.on('chat message', msg => {
     io.emit('chat message', msg);
-    });
+  });
 
   socket.on("user typing", typi => {
     socket.broadcast.emit("user typing", typi)
+    console.log("counter 1 : " + counter1)
+    console.log("counter 2 : " + counter2)
   })
 
-   
+  // socket.on("counter1", counterfromback1 => {
+  //   counter1++;
+  //   counterfromback1 = counter1;
+  //   socket.emit("counter1", counterfromback1)
+  // })
+
+  // socket.on("counter2", counterfromback2 => {
+  //   counter2++;
+  //   counterfromback2 = counter2;
+  //   socket.emit("counter2", counterfromback2)
+  // })
+
+  socket.on("counter1", () => {
+   counter1++;
+  })
+
+  socket.on("counter2", () => {
+    counter2++;
+  })
+
+  
+  socket.on("show counter1", (counterfromback1) => {
+    counterfromback1 = counter1;
+    socket.emit("show counter1", counterfromback1)
+  })
+
+  socket.on("show counter2", (counterfromback2) => {
+    counterfromback2 = counter2;
+    socket.emit("show counter2", counterfromback2)
+  })
+
   socket.on('disconnect', () => {
     io.emit('chat message', `${socket.username} has left the chat`);
     let filtered = users.filter(user => user !== socket.username);
     users = filtered;
     io.emit("filtered user", users)
 
-    let filtered2 = team1.filter(user => user !== socket.username )
+    let filtered2 = team1.filter(user => user !== socket.username)
     team1 = filtered2;
     io.emit("filtered team1", team1)
 
-    let filtered3 = team2.filter(user => user !== socket.username )
+    let filtered3 = team2.filter(user => user !== socket.username)
     team2 = filtered3;
     io.emit("filtered team2", team2)
 
 
     console.log(users)
-   });
+  });
 
 });
 
