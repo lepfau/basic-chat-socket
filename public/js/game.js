@@ -2,8 +2,11 @@ var canvas, context;
 
 var hero;
 var heroSpritesheet = new Image();
-heroSpritesheet.src = "./js/runnn.png"; 
 
+var heroSpritesheet2 = new Image();
+
+heroSpritesheet.src = "./js/scottpilgrim.png"; 
+heroSpritesheet2.src = "./js/ramonaflowers.png"
 
 window.onload = function() {
     canvas = document.getElementById("canvasHolder");
@@ -11,16 +14,16 @@ window.onload = function() {
     hero = new GameObject(heroSpritesheet,  //the spritesheet image
         counter1front,            //x position of hero
         0,            //y position of hero
-        920 ,         //total width of spritesheet image in pixels
-        137,          //total height of spritesheet image in pixels
+        864 ,         //total width of spritesheet image in pixels
+        140,          //total height of spritesheet image in pixels
         60,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
         8);           //number of sprites in the spritesheet
 
-    hero2 = new GameObject(heroSpritesheet,  //the spritesheet image
+    hero2 = new GameObject(heroSpritesheet2,  //the spritesheet image
         counter2front,            //x position of hero
         150,            //y position of hero
-        920 ,         //total width of spritesheet image in pixels
-        137,          //total height of spritesheet image in pixels
+        1000 ,         //total width of spritesheet image in pixels
+        157,          //total height of spritesheet image in pixels
         60,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
          8);           //number of sprites in the spritesheet
     loop();
