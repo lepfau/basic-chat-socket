@@ -16,7 +16,7 @@ window.onload = function() {
         0,            //y position of hero
         864 ,         //total width of spritesheet image in pixels
         140,          //total height of spritesheet image in pixels
-        60,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
+        600000,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
         8);           //number of sprites in the spritesheet
 
     hero2 = new GameObject(heroSpritesheet2,  //the spritesheet image
@@ -24,7 +24,7 @@ window.onload = function() {
         150,            //y position of hero
         1000 ,         //total width of spritesheet image in pixels
         157,          //total height of spritesheet image in pixels
-        60,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
+        600000,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
          8);           //number of sprites in the spritesheet
     loop();
 }
@@ -75,7 +75,6 @@ function GameObject(spritesheet, x, y, width, height, timePerFrame, numberOfFram
 
 //The Game Loop
 function loop() {
-    update();
     draw();
   }
 
@@ -113,19 +112,20 @@ inputtest.addEventListener("input", () => {
       socket.emit("show counter1", counter1front)
       socket.emit("move hero1", counter1front)
       socket.emit("show counter2", counter2front)
-    //   socket.emit("move hero2", counter2front)
     }
 
       else if (inputtest.value === "xc" && team2.checked) {
       inputtest.value = "";
       socket.emit("counter2")
       socket.emit("show counter1", counter1front)
-    //   socket.emit("move hero1", counter1front)
       socket.emit("show counter2", counter2front)
       socket.emit("move hero2", counter2front)
     }
   
     else if (inputtest.value.length >= 3) inputtest.value = ""
+
+    else if (team1.checked && inputtest.value === "") socket.emit("stop hero1", counter1front);
+    else if (team2.checked && inputtest.value === "") socket.emit("stop hero2", counter2front);
    
   })
 

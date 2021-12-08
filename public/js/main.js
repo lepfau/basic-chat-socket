@@ -46,7 +46,10 @@ form1.addEventListener("submit", function (e) {
     socket.emit("user list", userList);
     socket.emit("team1 list", team1list)
     socket.emit("team2 list", team2list)
-
+      socket.emit("show counter1", counter1front)
+      socket.emit("show hero1", counter1front)
+      socket.emit("show counter2", counter2front)
+      socket.emit("show hero2", counter1front)
    }
 });
 
@@ -177,6 +180,19 @@ socket.on("move hero1", (counter) => {
   loop2();
 })
 
+socket.on("show hero1", counter => {
+  canvas = document.getElementById("canvasHolder");
+  context = canvas.getContext("2d");
+  hero = new GameObject(heroSpritesheet,  //the spritesheet image
+      counter,            //x position of hero
+      0,            //y position of hero
+      864 ,         //total width of spritesheet image in pixels
+      140,          //total height of spritesheet image in pixels
+      600000,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
+      8);           //number of sprites in the spritesheet
+  loop2();
+})
+
 socket.on("show counter2", (counter) => {
   countertag2.innerHTML = "";
   let item = document.createElement("p");
@@ -193,6 +209,18 @@ socket.on("move hero2", (counter) => {
     1000 ,         //total width of spritesheet image in pixels
     157,          //total height of spritesheet image in pixels
     60,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
+     8);           //number of sprites in the spritesheet
+loop2();
+})
+
+socket.on("show hero2", (counter) => {
+  canvas = document.getElementById("canvasHolder");
+  hero2 = new GameObject(heroSpritesheet2,  //the spritesheet image
+    counter,            //x position of hero
+    150,            //y position of hero
+    1000 ,         //total width of spritesheet image in pixels
+    157,          //total height of spritesheet image in pixels
+    600000,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
      8);           //number of sprites in the spritesheet
 loop2();
 })

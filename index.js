@@ -103,6 +103,16 @@ io.on('connection', (socket) => {
     io.emit("move hero2", counterfromback2)
   })
 
+  socket.on("show hero1", (counterfromback1) => {
+    counterfromback1 = counter1;
+    io.emit("show hero1", counterfromback1)
+  })
+
+  socket.on("show hero2", (counterfromback2) => {
+    counterfromback2 = counter2;
+    io.emit("show hero2", counterfromback2)
+  })
+
   socket.on("stop hero1", counterfromback1 => {
     counterfromback1 = counter1;
     io.emit("stop hero1", counterfromback1)

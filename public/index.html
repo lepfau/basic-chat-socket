@@ -9,7 +9,7 @@
       id="canvasHolder"
       height="350px"
       width="800px"
-      style="border: 2px solid black;     background-color: cornflowerblue; width: 100%"
+      style="border: 2px solid black;     background-color: cornflowerblue; width: 90%; max-width: 850px;"
     ></canvas>
     <input id="inputtest" value="" type="text" />
     <form id="form1" action="">
@@ -56,7 +56,7 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      const socket = io("https://edbasicchat.herokuapp.com", {
+      const socket = io("http://localhost:3000", {
         withCredentials: true,
         extraHeaders: {
           "my-custom-header": "abcd",
