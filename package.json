@@ -11,6 +11,6 @@
         "socket.io-client": "^4.4.0"
     },
     "scripts": {
-        "start": "node index.js"
+        "start": "nodemon index.js"
     }
 }

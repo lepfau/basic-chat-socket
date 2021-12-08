@@ -2,64 +2,69 @@
 <html>
   <head>
     <title>Socket.IO chat</title>
-    <link rel="stylesheet" href="./styles/style.css"/>
-   
+    <link rel="stylesheet" href="./styles/style.css" />
   </head>
   <body>
-    <input id="inputtest" value="" type="text"/>
+    <canvas
+      id="canvasHolder"
+      height="250px"
+      width="800px"
+      style="border: 2px solid black"
+    ></canvas>
+    <input id="inputtest" value="" type="text" />
     <form id="form1" action="">
       <input id="username" />
-      
+
       <label class="labelteam" for="myCheck1">team 1</label>
-      <input type="checkbox" id="myCheck1" value="team1">  
+      <input type="checkbox" id="myCheck1" value="team1" />
       <label class="labelteam" for="myCheck2">team 2</label>
-      <input type="checkbox" id="myCheck2" value="team2">  
+      <input type="checkbox" id="myCheck2" value="team2" />
       <button>Enter chat room</button>
     </form>
     <div id="full_container">
-    <div class="teams_list">
-      <h3>Team 1</h3>
-      <ul id="team1list"></ul>
-      <h3>Team 1 counter</h3>
-      <div id="countertag">
-        <p id ='pcounter1'>0</p>
+      <div class="teams_list">
+        <h3>Team 1</h3>
+        <ul id="team1list"></ul>
+        <h3>Team 1 counter</h3>
+        <div id="countertag">
+          <p id="pcounter1">0</p>
+        </div>
+        <h3>Team 2</h3>
+        <ul id="team2list"></ul>
+        <div class="user_list"></div>
+        <h3>Team 2 counter</h3>
+        <div id="countertag2">
+          <p id="pcounter2">0</p>
+        </div>
+
+        <h3>Users online</h3>
+        <ul id="users"></ul>
       </div>
-      <h3>Team 2</h3>
-      <ul id="team2list"></ul>
-      <div class="user_list"></div>
-      <h3>Team 2 counter</h3>
-      <div id="countertag2">
-        <p id ='pcounter2'>0</p>
+      <div id="full_chat_container">
+        <ul id="messages"></ul>
+        <p id="yo"></p>
+
+        <form id="form" action="">
+          <input id="input" autocomplete="off" />
+          <button>Send</button>
+        </form>
       </div>
-      
- <h3>Users online</h3>
-    <ul id="users"></ul>
-  </div>
-  <div id="full_chat_container">
-    <ul id="messages"></ul>
-    <p id="yo"></p>
- 
-    <form id="form" action="">
-      <input id="input" autocomplete="off" />
-      <button>Send</button>
-    </form>
-  </div>
-  </div>
+    </div>
     <script
       src="https://cdn.socket.io/4.4.0/socket.io.min.js"
       integrity="sha384-1fOn6VtTq3PWwfsOrk45LnYcGosJwzMHv+Xh/Jx5303FVOXzEnw0EpLv30mtjmlj"
       crossorigin="anonymous"
     ></script>
     <script>
-     const socket = io("http://localhost:3000", {
-  withCredentials: true,
-  extraHeaders: {
-    "my-custom-header": "abcd"
-  }
-});
+      const socket = io("http://localhost:3000", {
+        withCredentials: true,
+        extraHeaders: {
+          "my-custom-header": "abcd",
+        },
+      });
     </script>
-    <script src="./js/main.js">
- </script>
+    <script src="./js/main.js"></script>
+    <script src="./js/game.js"></script>
+  }></script>
   </body>
-
 </html>

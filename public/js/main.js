@@ -46,6 +46,7 @@ form1.addEventListener("submit", function (e) {
     socket.emit("user list", userList);
     socket.emit("team1 list", team1list)
     socket.emit("team2 list", team2list)
+
    }
 });
 
@@ -160,6 +161,16 @@ socket.on("show counter1", (counter) => {
   let item = document.createElement("p");
   item.innerText = counter
   countertag.appendChild(item);
+    canvas = document.getElementById("canvasHolder");
+  context = canvas.getContext("2d");
+  hero = new GameObject(heroSpritesheet,  //the spritesheet image
+      counter,            //x position of hero
+      0,            //y position of hero
+      1536 ,         //total width of spritesheet image in pixels
+      256,          //total height of spritesheet image in pixels
+      90,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
+      6);           //number of sprites in the spritesheet
+  loop();
 })
 
 socket.on("show counter2", (counter) => {
@@ -170,23 +181,20 @@ socket.on("show counter2", (counter) => {
 })
 
 
+// setInterval(() => {
+//   socket.emit("show counter1", counter1front)
+//   socket.emit("show counter2", counter2front)
+// }, 100);
 
-inputtest.addEventListener("input", () => {
-  if (inputtest.value === "xc" && team1.checked) {
-    inputtest.value = "";
-    socket.emit("counter1")
-    socket.emit("show counter1", counter1front)
-    socket.emit("show counter2", counter2front)
-  }
-  else if (inputtest.value === "xc" && team2.checked) {
-    inputtest.value = "";
-    socket.emit("counter2")
-    socket.emit("show counter1", counter1front)
-    socket.emit("show counter2", counter2front)
-  }
-
-  else if (inputtest.value.length >= 3) inputtest.value = ""
-
-})
-
-
+// setInterval(() => {
+//   canvas = document.getElementById("canvasHolder");
+//   context = canvas.getContext("2d");
+//   hero = new GameObject(heroSpritesheet,  //the spritesheet image
+//       counter1front,            //x position of hero
+//       0,            //y position of hero
+//       1536 ,         //total width of spritesheet image in pixels
+//       256,          //total height of spritesheet image in pixels
+//       90,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
+//       6);           //number of sprites in the spritesheet
+//   loop();
+// }, 400);

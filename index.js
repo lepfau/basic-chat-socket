@@ -51,20 +51,9 @@ io.on('connection', (socket) => {
   socket.on("user list", (userlistfromback) => {
     userlistfromback = users;
     socket.emit("user list", userlistfromback)
-  })
+  });
 
-  
-  //   setInterval(function(counterfromback1){
-  //     counterfromback1 = counter1;
-  //     socket.emit('show counter1', counterfromback1); 
-  // }, 100);
 
-  
-
-  // socket.on("show counter2", (counterfromback2) => {
-  //   counterfromback2 = counter2;
-  //   socket.emit("show counter", counterfromback2)
-  // })
 
   socket.on("team1 list", (team1listfromback) => {
     team1listfromback = team1;
@@ -86,24 +75,12 @@ io.on('connection', (socket) => {
     console.log("counter 2 : " + counter2)
   })
 
-  // socket.on("counter1", counterfromback1 => {
-  //   counter1++;
-  //   counterfromback1 = counter1;
-  //   socket.emit("counter1", counterfromback1)
-  // })
-
-  // socket.on("counter2", counterfromback2 => {
-  //   counter2++;
-  //   counterfromback2 = counter2;
-  //   socket.emit("counter2", counterfromback2)
-  // })
-
   socket.on("counter1", () => {
-   counter1++;
+   counter1 += 5;
   })
 
   socket.on("counter2", () => {
-    counter2++;
+    counter2 += 5;
   })
 
   
