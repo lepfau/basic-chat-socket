@@ -2,7 +2,7 @@ const app = require('express')();
 const express = require('express')
 const http = require('http').Server(app);
 const path = require('path');
-const { setInterval } = require('timers/promises');
+
 const port = process.env.PORT || 3000;
 
 const io = require("socket.io")(http, {
@@ -11,6 +11,12 @@ const io = require("socket.io")(http, {
     methods: ["GET", "POST"],
     credentials: true
   }
+});
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
 });
 
 
@@ -22,11 +28,7 @@ let team2 = [];
 let counter1 = 0;
 let counter2 = 0;
 
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
-});
 
 io.on('connection', (socket) => {
 
