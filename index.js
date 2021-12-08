@@ -110,6 +110,9 @@ io.on('connection', (socket) => {
     team2 = filtered3;
     io.emit("filtered team2", team2)
 
+    counter1 = 0;
+    counter2 = 0;
+
 
     console.log(users)
   });
