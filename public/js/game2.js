@@ -6,23 +6,15 @@ heroSpritesheet.src = "./js/runnn.png";
 
 
 window.onload = function() {
-    canvas = document.getElementById("canvasHolder");
+    canvas = document.getElementById("canvasHolder2");
     context = canvas.getContext("2d");
     hero = new GameObject(heroSpritesheet,  //the spritesheet image
-        counter1front,            //x position of hero
+        counter2front,            //x position of hero
         0,            //y position of hero
         920 ,         //total width of spritesheet image in pixels
         137,          //total height of spritesheet image in pixels
         60,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
         8);           //number of sprites in the spritesheet
-
-    hero2 = new GameObject(heroSpritesheet,  //the spritesheet image
-        counter2front,            //x position of hero
-        150,            //y position of hero
-        920 ,         //total width of spritesheet image in pixels
-        137,          //total height of spritesheet image in pixels
-        60,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
-         8);           //number of sprites in the spritesheet
     loop();
 }
 
@@ -70,6 +62,8 @@ function GameObject(spritesheet, x, y, width, height, timePerFrame, numberOfFram
 }
 
 
+
+
 //The Game Loop
 function loop() {
     update();
@@ -86,14 +80,12 @@ function loop2() {
 //update function to update all the GameObjects
 function update() {
     hero.update();
-    hero2.update()
 }
 
 //draw method for drawing everything on canvas
 function draw() {
     context.clearRect(0,0,canvas.width, canvas.height);
     hero.draw(context);
-    hero2.draw(context)
 }
 
 
@@ -115,6 +107,3 @@ inputtest.addEventListener("input", () => {
     else if (inputtest.value.length >= 3) inputtest.value = ""
   
   })
-
-
-  

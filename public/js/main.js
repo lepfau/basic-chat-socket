@@ -166,11 +166,11 @@ socket.on("show counter1", (counter) => {
   hero = new GameObject(heroSpritesheet,  //the spritesheet image
       counter,            //x position of hero
       0,            //y position of hero
-      1536 ,         //total width of spritesheet image in pixels
-      256,          //total height of spritesheet image in pixels
-      90,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
-      6);           //number of sprites in the spritesheet
-  loop();
+      920 ,         //total width of spritesheet image in pixels
+      137,          //total height of spritesheet image in pixels
+      60,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
+      8);           //number of sprites in the spritesheet
+  loop2();
 })
 
 socket.on("show counter2", (counter) => {
@@ -178,6 +178,15 @@ socket.on("show counter2", (counter) => {
   let item = document.createElement("p");
   item.innerText = counter
   countertag2.appendChild(item);
+    canvas = document.getElementById("canvasHolder");
+  hero2 = new GameObject(heroSpritesheet,  //the spritesheet image
+    counter,            //x position of hero
+    150,            //y position of hero
+    920 ,         //total width of spritesheet image in pixels
+    137,          //total height of spritesheet image in pixels
+    60,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
+     8);           //number of sprites in the spritesheet
+loop2();
 })
 
 
