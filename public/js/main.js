@@ -18,12 +18,26 @@ let inputtest = document.getElementById("inputtest");
 let userList = [];
 let team1list = [];
 let team2list = [];
+
+
 let counter1front = 0;
 let counter2front = 0;
 let countertag = document.getElementById("countertag");
 let countertag2 = document.getElementById("countertag2")
 let pcounter1 = document.getElementById("pcounter1")
 let pcounter2 = document.getElementById("pcounter2")
+
+let maintitle = document.getElementById("main_title")
+let canvasHolder = document.getElementById("canvasHolder")
+let homepage = document.getElementById("homepage")
+
+let team1number = document.getElementById("team1number");
+let team2number = document.getElementById("team2number");
+
+let number1= team1list.length;
+let number2 = team2list.length;
+
+
 
 form.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -33,14 +47,24 @@ form.addEventListener("submit", function (e) {
   }
 });
 
+team1.addEventListener("click", function () {
+  team2.checked = false
+})
+
+team2.addEventListener("click", function () {
+  team1.checked = false
+})
+
 form1.addEventListener("submit", function (e) {
   e.preventDefault();
-  if (username.value && username.value !== " ") {
+  if ((username.value && username.value !== " ") && (team1.checked || team2.checked)) {
     form1.style.visibility = "hidden";
-    
-    fullcontainer.style.display = "block"
-    if (team1.checked) socket.emit("choose team", { username: username.value, teamnumber: team1.value });
-    else socket.emit("choose team", { username: username.value, teamnumber: team2.value })
+    maintitle.style.visibility = "hidden";
+    homepage.style.visibility="hidden";
+    canvasHolder.style.visibility = "visible";
+    fullcontainer.style.display = "block";
+    if (team1.checked) {
+    socket.emit("choose team", { username: username.value, teamnumber: team1.value });
     socket.emit("add user", username.value);
     socket.emit("new user", username.value);
     socket.emit("user list", userList);
@@ -50,8 +74,41 @@ form1.addEventListener("submit", function (e) {
       socket.emit("show hero1", counter1front)
       socket.emit("show counter2", counter2front)
       socket.emit("show hero2", counter1front)
-   }
+    }
+    else  if (team2.checked) {
+      socket.emit("choose team", { username: username.value, teamnumber: team2.value })
+      socket.emit("add user", username.value);
+    socket.emit("new user", username.value);
+    socket.emit("user list", userList);
+    socket.emit("team1 list", team1list)
+    socket.emit("team2 list", team2list)
+      socket.emit("show counter1", counter1front)
+      socket.emit("show hero1", counter1front)
+      socket.emit("show counter2", counter2front)
+      socket.emit("show hero2", counter1front)
+    }
+
+      }
+   
+   else if(!username.value) {
+   document.getElementById("error_username").innerHTML = "please submit username"
+   setTimeout(() => {
+    document.getElementById("error_username").innerHTML = ""
+   }, 2000);}
+
+   else {
+    document.getElementById("error_username").innerHTML = "please choose a team"
+    setTimeout(() => {
+     document.getElementById("error_username").innerHTML = ""
+    }, 2000);}
+   
+
+
 });
+
+  socket.emit("user list", userList);
+  socket.emit("team1 list", team1list)
+  socket.emit("team2 list", team2list)
 
 
 input.addEventListener("input", function () {
@@ -74,11 +131,17 @@ socket.on("user typing", function (typi) {
 socket.on("user list", function (userlistfromback) {
   userslisting.innerHTML = "";
   var items = userslisting.getElementsByTagName("li");
+  if(userlistfromback.length > 0) {
   userlistfromback.forEach((el) => {
     var item = document.createElement("li");
     item.textContent = el;
     userslisting.appendChild(item);
   });
+} else {
+  var item = document.createElement("li");
+    item.textContent = "Nobody online";
+    userslisting.appendChild(item);
+}
 });
 
 
@@ -88,7 +151,9 @@ socket.on("team1 list", function (team1listfromback) {
     var item = document.createElement("li");
     item.textContent = el;
     team1listing.appendChild(item)
-  })
+      })
+      team1number.innerHTML = team1listfromback.length;
+
 })
 
 socket.on("team2 list", function (team2listfromback) {
@@ -98,6 +163,7 @@ socket.on("team2 list", function (team2listfromback) {
     item.textContent = el;
     team2listing.appendChild(item)
   })
+  team2number.innerHTML = team2listfromback.length;
 })
 
 socket.on("updated list", function (updatedlist) {

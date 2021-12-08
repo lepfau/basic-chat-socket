@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Socket.IO chat</title>
+    <title>Run run run </title>
     <link rel="stylesheet" href="./styles/style.css" />
   </head>
   <body>
@@ -9,18 +9,33 @@
       id="canvasHolder"
       height="350px"
       width="800px"
-      style="border: 2px solid black;     background-color: cornflowerblue; width: 90%; max-width: 850px;"
+      style="border: 2px solid black;     background-color: #4978cd; width: 90%; max-width: 850px;"
     ></canvas>
     <input id="inputtest" value="" type="text" />
+    <div id="homepage">
+      <h1 id="main_title">RUN!RUN!RUN!</h1>
     <form id="form1" action="">
-      <input id="username" />
-
-      <label class="labelteam" for="myCheck1">team 1</label>
+    
+      <input id="username" placeholder="enter username..."/>
+      <div style="color: firebrick" id="error_username"></div>
+      <div class="checkbox_container">
+        <h3 class="checkbox_title">choose team</h3>
+        <div class="checkbox_input">
+      <label class="labelteam" for="myCheck1">Team 1 ( <span id="team1number"></span> users )</label>
       <input type="checkbox" id="myCheck1" value="team1" />
-      <label class="labelteam" for="myCheck2">team 2</label>
+    </div>
+    <div class="checkbox_input">
+      <label class="labelteam" for="myCheck2">Team 2 ( <span id="team2number"></span> users )</label>
       <input type="checkbox" id="myCheck2" value="team2" />
-      <button>Enter chat room</button>
+    </div>
+    </div>
+      <button class="play_button">Play</button>
     </form>
+    <div class="users_list_container">
+    <h3 class="users_list_title">Users online</h3>
+    <ul id="users"></ul>
+  </div>
+  </div>
     <div id="full_container">
       <div class="teams_list">
         <h3>Team 1</h3>
@@ -56,7 +71,7 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      const socket = io("https://edbasicchat.herokuapp.com", {
+      const socket = io("http://localhost:3000", {
         withCredentials: true,
         extraHeaders: {
           "my-custom-header": "abcd",
