@@ -31,6 +31,7 @@ let startArray = [];
 let counter1 = 0;
 let counter2 = 0;
 
+let timer = 4;
 
 
 io.on('connection', (socket) => {
@@ -57,6 +58,11 @@ io.on('connection', (socket) => {
     userlistfromback = users;
     socket.emit("user list", userlistfromback)
   });
+
+  socket.on("timer", timerfromback => {
+    timerfromback = timer;
+    socket.emit("timer", timerfromback)
+  })
 
 
   socket.on("team1 list", (team1listfromback) => {
@@ -139,12 +145,32 @@ io.on('connection', (socket) => {
   })
 
 
-
-
   socket.on("launch game", () => {
     io.emit("launch game")
   })
 
+  socket.on("winner1", (countertest) => {
+    countertest = counter1;
+    if (countertest === 700) {
+      io.emit("winner1")
+    }
+  })
+
+  socket.on("winner2", (countertest2) => {
+    countertest2 = counter2;
+    if (countertest2 === 700) {
+      io.emit("winner2")
+    }
+  })
+
+  socket.on("restart", (countertochange1, countertochange2) => {
+    counter1 = 0;
+    counter2 = 0; 
+    
+    countertochange1 = counter1 - 5;
+    countertochange2 = counter2 - 5;
+    io.emit("restart")
+  })
 
 
   socket.on('disconnect', () => {

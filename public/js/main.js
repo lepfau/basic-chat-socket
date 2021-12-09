@@ -43,31 +43,20 @@ let counter = 4;
 let countdown = document.getElementById("countdown")
 let startbutton = document.getElementById("start_button")
 
-startbutton.addEventListener("click", async () => {
+startbutton.addEventListener("click", () => {
   socket.emit("launch game")
 
 })
 
 
 
+
 socket.on("launch game", () => {
 
-const timer = setInterval(() => {
-  counter -= 1
-  console.log(counter)
-countdown.innerHTML = counter
-  if(counter === 0) {
-    clearInterval(timer)
     countdown.innerHTML = "GO !"
-  }
-}, 1000);
-
 
 });
 
-
- 
- 
 
 form.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -106,7 +95,8 @@ form1.addEventListener("submit", function (e) {
       socket.emit("show counter1", counter1front)
       socket.emit("show hero1", counter1front)
       socket.emit("show counter2", counter2front)
-      socket.emit("show hero2", counter1front)
+      socket.emit("show hero2", counter2front)
+      
     }
     else  if (team2.checked) {
       socket.emit("choose team", { username: username.value, teamnumber: team2.value })
@@ -120,7 +110,8 @@ form1.addEventListener("submit", function (e) {
       socket.emit("show counter1", counter1front)
       socket.emit("show hero1", counter1front)
       socket.emit("show counter2", counter2front)
-      socket.emit("show hero2", counter1front)
+      socket.emit("show hero2", counter2front)
+     
     }
 
       }
@@ -138,14 +129,64 @@ form1.addEventListener("submit", function (e) {
     }, 2000);}
    
 
-
 });
 
   socket.emit("user list", userList);
   socket.emit("team1 list", team1list)
   socket.emit("team2 list", team2list)
   socket.emit("startList", startList)
+  socket.emit("timer", counter)
+  
 
+  socket.on("winner2", () => {
+      countdown.innerHTML = "TEAM 2 WINS !!!"
+//  socket.emit("restart", counter2front)
+
+  })
+
+  socket.on("winner1", () => {
+        countdown.innerHTML = "TEAM 1 WINS !!!"
+        //  socket.emit("restart", counter1front)
+    })
+
+
+    let restartbutton = document.getElementById("restart");
+    restartbutton.addEventListener("click", () => {
+      socket.emit("restart", counter1front, counter2front)
+    })
+
+
+socket.on("restart", (countertochange1, countertochange2) => {
+countdown.innerHTML = "GO !"
+  socket.emit("timer", counter)
+socket.emit("launch game")
+
+socket.emit("show counter1", counter1front)
+socket.emit("show hero1", counter1front)
+socket.emit("show counter2", counter2front)
+socket.emit("show hero2", counter2front)
+
+canvas = document.getElementById("canvasHolder");
+context = canvas.getContext("2d");
+hero = new GameObject(heroSpritesheet,  //the spritesheet image
+    counter1front,            //x position of hero
+    20,            //y position of hero
+    864 ,         //total width of spritesheet image in pixels
+    140,          //total height of spritesheet image in pixels
+    600000,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
+    8);           //number of sprites in the spritesheet
+
+hero2 = new GameObject(heroSpritesheet2,  //the spritesheet image
+    counter2front,            //x position of hero
+    160,            //y position of hero
+    1000 ,         //total width of spritesheet image in pixels
+    157,          //total height of spritesheet image in pixels
+    600000,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
+     8);           //number of sprites in the spritesheet
+loop();
+
+  })
+ 
  
 input.addEventListener("input", function () {
   socket.emit("user typing", `${username.value} is typing...`);
@@ -267,6 +308,11 @@ socket.on("show counter1", (counter) => {
   let item = document.createElement("p");
   item.innerText = `${counter / 10} meters`
   countertag.appendChild(item);
+  // if(counter === 700) {
+  //   countdown.innerHTML = "Team 1 wins !"
+  //   counter = 0;
+  
+  // }
 
 })
 
@@ -281,6 +327,8 @@ socket.on("move hero1", (counter) => {
       60,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
       8);           //number of sprites in the spritesheet
   loop2();
+  socket.emit("winner1", counter)
+  
 })
 
 socket.on("show hero1", counter => {
@@ -314,6 +362,7 @@ socket.on("move hero2", (counter) => {
     60,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
      8);           //number of sprites in the spritesheet
 loop2();
+socket.emit("winner2", counter)
 })
 
 socket.on("show hero2", (counter) => {

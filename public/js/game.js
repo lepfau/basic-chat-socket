@@ -102,10 +102,7 @@ var typingTimer;                //timer identifier
 var doneTypingInterval = 300;  //time in ms, 5 second for example
 
 
-
 inputtest.addEventListener("input", () => {
-
-
    if (inputtest.value === "xc" && team1.checked && countdown.innerHTML === "GO !") {
       inputtest.value = "";
       socket.emit("counter1")
@@ -125,8 +122,8 @@ inputtest.addEventListener("input", () => {
     else if (inputtest.value.length >= 3) inputtest.value = ""
 
     else if (team1.checked && inputtest.value === "") socket.emit("stop hero1", counter1front);
-    else if (team2.checked && inputtest.value === "") socket.emit("stop hero2", counter2front);
-   
+   else if (team2.checked && inputtest.value === "") socket.emit("stop hero2", counter2front);
+
   })
 
   
