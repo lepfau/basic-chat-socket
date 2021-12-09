@@ -2,6 +2,7 @@ const app = require('express')();
 const express = require('express')
 const http = require('http').Server(app);
 const path = require('path');
+const { start } = require('repl');
 
 const port = process.env.PORT || 3000;
 
@@ -24,6 +25,8 @@ let users = [];
 
 let team1 = [];
 let team2 = [];
+
+let startArray = [];
 
 let counter1 = 0;
 let counter2 = 0;
@@ -56,7 +59,6 @@ io.on('connection', (socket) => {
   });
 
 
-
   socket.on("team1 list", (team1listfromback) => {
     team1listfromback = team1;
     socket.emit("team1 list", team1listfromback)
@@ -73,10 +75,11 @@ io.on('connection', (socket) => {
 
   socket.on("user typing", typi => {
     socket.broadcast.emit("user typing", typi)
-     })
+    console.log("startList: " + startArray)
+  })
 
   socket.on("counter1", () => {
-   counter1 += 5;
+    counter1 += 5;
   })
 
   socket.on("counter2", () => {
@@ -122,6 +125,26 @@ io.on('connection', (socket) => {
     counterfromback2 = counter2;
     io.emit("stop hero2", counterfromback2)
   })
+
+
+  socket.on("addStartList", (username) => {
+    startArray.push(username);
+  })
+  
+
+
+  socket.on("startList", (startList) => {
+    startList = startArray
+    socket.emit("startList", startList)
+  })
+
+
+
+
+  socket.on("launch game", () => {
+    io.emit("launch game")
+  })
+
 
 
   socket.on('disconnect', () => {

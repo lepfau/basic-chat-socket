@@ -224,7 +224,7 @@ hr {
   margin-top: 15px;
 }
 
-.start_button {
+#start_button {
   font-family: "catchy_melodyregular";
   height: 50px;
   width: 100px;
@@ -242,7 +242,7 @@ hr {
 }
 
 
-.start_button:hover {
+#start_button:hover {
   background-color: #e7dd5c;
 }
 

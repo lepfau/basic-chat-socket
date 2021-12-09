@@ -19,6 +19,7 @@ let userList = [];
 let team1list = [];
 let team2list = [];
 
+let startList = [];
 
 let counter1front = 0;
 let counter2front = 0;
@@ -37,11 +38,36 @@ let team2number = document.getElementById("team2number");
 let number1= team1list.length;
 let number2 = team2list.length;
 
+let counter = 4;
 
 let countdown = document.getElementById("countdown")
+let startbutton = document.getElementById("start_button")
+
+startbutton.addEventListener("click", async () => {
+  socket.emit("launch game")
+
+})
 
 
 
+socket.on("launch game", () => {
+
+const timer = setInterval(() => {
+  counter -= 1
+  console.log(counter)
+countdown.innerHTML = counter
+  if(counter === 0) {
+    clearInterval(timer)
+    countdown.innerHTML = "GO !"
+  }
+}, 1000);
+
+
+});
+
+
+ 
+ 
 
 form.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -75,6 +101,8 @@ form1.addEventListener("submit", function (e) {
     socket.emit("user list", userList);
     socket.emit("team1 list", team1list)
     socket.emit("team2 list", team2list)
+    socket.emit("startList", startList)
+
       socket.emit("show counter1", counter1front)
       socket.emit("show hero1", counter1front)
       socket.emit("show counter2", counter2front)
@@ -87,6 +115,8 @@ form1.addEventListener("submit", function (e) {
     socket.emit("user list", userList);
     socket.emit("team1 list", team1list)
     socket.emit("team2 list", team2list)
+    socket.emit("startList", startList)
+
       socket.emit("show counter1", counter1front)
       socket.emit("show hero1", counter1front)
       socket.emit("show counter2", counter2front)
@@ -114,8 +144,9 @@ form1.addEventListener("submit", function (e) {
   socket.emit("user list", userList);
   socket.emit("team1 list", team1list)
   socket.emit("team2 list", team2list)
+  socket.emit("startList", startList)
 
-
+ 
 input.addEventListener("input", function () {
   socket.emit("user typing", `${username.value} is typing...`);
 });
