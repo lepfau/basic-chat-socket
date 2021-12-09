@@ -45,16 +45,10 @@ let startbutton = document.getElementById("start_button")
 
 startbutton.addEventListener("click", () => {
   socket.emit("launch game")
-
 })
 
-
-
-
 socket.on("launch game", () => {
-
     countdown.innerHTML = "GO !"
-
 });
 
 
