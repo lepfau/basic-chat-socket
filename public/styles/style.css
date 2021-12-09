@@ -17,7 +17,8 @@
 }
 
 #canvasHolder {
-  background-color: rgb(231, 221, 92);
+  background: url("./../js/City2tt.png");
+  background-size: 99% 94%;
   border-radius: 5px;
   visibility: visible;
 }
@@ -223,8 +224,11 @@ hr {
   align-items: center;
   font-weight: 900;
   justify-content: center;
-  font-size: 80px;
-  margin-top: 20px;
+
+  font-size: 77px;
+  font-family: 'sunny_spellsregular';
+ 
+  margin-top: 50px;
 }
 
 
@@ -255,7 +259,21 @@ hr {
   font-size: 31px;
   cursor: pointer;
   color: #964f4f;
+  margin-top: 8px;
+}
+
+#restart_button {
+  font-family: "catchy_melodyregular";
+  height: 50px;
+  width: 175px;
+  background-color: #bdd4ff;
+  border-radius: 8px;
+  border: none;
+  font-size: 31px;
+  cursor: pointer;
+  color: #964f4f;
   margin-top: 48px;
+  margin-left: 5px;
 }
 
 .play_button:hover {
@@ -264,6 +282,10 @@ hr {
 
 
 #start_button:hover {
+  background-color: #e7dd5c;
+}
+
+#restart_button:hover {
   background-color: #e7dd5c;
 }
 
@@ -356,7 +378,7 @@ hr {
 
   #full_container {
    display: none;
-  
+   margin-right: 5px;
    width: 18%;
    height: 631px;
   }

@@ -13,7 +13,7 @@ window.onload = function() {
     context = canvas.getContext("2d");
     hero = new GameObject(heroSpritesheet,  //the spritesheet image
         counter1front,            //x position of hero
-        20,            //y position of hero
+        200,            //y position of hero
         864 ,         //total width of spritesheet image in pixels
         140,          //total height of spritesheet image in pixels
         600000,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
