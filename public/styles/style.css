@@ -38,6 +38,16 @@
   width: 68%;
 }
 
+#countertag {
+  font-family: "sunny_spellsregular";
+  font-size: 32px;
+}
+
+#countertag2 {
+  font-family: "sunny_spellsregular";
+  font-size: 32px;
+}
+
 #inputtest {
   align-self: center;
   height: 35px;
@@ -120,16 +130,31 @@ body {
   margin-bottom: 15px;
 }
 
+.team_title {
+  font-family: 'Roboto';
+  font-size: 30px;
+}
+
+hr {
+  height: 1px;
+  border: none;
+  background-color: black;
+}
+
 .game_middle {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  height: 625px;
+  height: 510px;
+  margin-top: 8vh;
+  max-width: 1500px;
 }
 
 .teams_list {
-  width: 10%;
+  width: 12%;
+  margin-bottom: 90px;
+  margin-left: 6px;
 }
 
   #form {
@@ -174,6 +199,18 @@ body {
   width: 30px;
 }
 
+#countdown {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-weight: 900;
+  justify-content: center;
+  font-size: 80px;
+  margin-top: 20px;
+}
+
+
 .play_button {
   font-family: "catchy_melodyregular";
   height: 50px;
@@ -187,10 +224,27 @@ body {
   margin-top: 15px;
 }
 
+.start_button {
+  font-family: "catchy_melodyregular";
+  height: 50px;
+  width: 100px;
+  background-color: #bdd4ff;
+  border-radius: 8px;
+  border: none;
+  font-size: 31px;
+  cursor: pointer;
+  color: #964f4f;
+  margin-top: 48px;
+}
+
 .play_button:hover {
   background-color: #e7dd5c;
 }
 
+
+.start_button:hover {
+  background-color: #e7dd5c;
+}
 
 .checkbox_container {
   margin-bottom: 10px;
@@ -282,6 +336,6 @@ body {
   #full_container {
    display: none;
   
-   width: 20%;
+   width: 18%;
    height: 631px;
   }

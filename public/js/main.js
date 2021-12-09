@@ -38,6 +38,10 @@ let number1= team1list.length;
 let number2 = team2list.length;
 
 
+let countdown = document.getElementById("countdown")
+
+
+
 
 form.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -230,7 +234,7 @@ socket.on("new user", function (username) {
 socket.on("show counter1", (counter) => {
   countertag.innerHTML = "";
   let item = document.createElement("p");
-  item.innerText = counter
+  item.innerText = `${counter / 10} meters`
   countertag.appendChild(item);
 
 })
@@ -264,7 +268,7 @@ socket.on("show hero1", counter => {
 socket.on("show counter2", (counter) => {
   countertag2.innerHTML = "";
   let item = document.createElement("p");
-  item.innerText = counter
+  item.innerText = `${counter / 10} meters`
   countertag2.appendChild(item);
 
 })
