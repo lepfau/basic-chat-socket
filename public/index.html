@@ -5,14 +5,11 @@
     <link rel="stylesheet" href="./styles/style.css" />
   </head>
   <body>
-    <canvas
-      id="canvasHolder"
-      height="350px"
-      width="800px"
-      style="border: 2px solid black;     background-color: #4978cd; width: 90%; max-width: 850px;"
-    ></canvas>
-    <input id="inputtest" value="" type="text" />
     <div id="homepage">
+      <div class="users_list_container">
+        <h3 class="users_list_title">Users online</h3>
+        <ul id="users"></ul>
+      </div>
       <h1 id="main_title">RUN!RUN!RUN!</h1>
     <form id="form1" action="">
     
@@ -31,40 +28,55 @@
     </div>
       <button class="play_button">Play</button>
     </form>
-    <div class="users_list_container">
-    <h3 class="users_list_title">Users online</h3>
-    <ul id="users"></ul>
   </div>
-  </div>
-    <div id="full_container">
-      <div class="teams_list">
-        <h3>Team 1</h3>
-        <ul id="team1list"></ul>
-        <h3>Team 1 counter</h3>
-        <div id="countertag">
-          <p id="pcounter1">0</p>
-        </div>
-        <h3>Team 2</h3>
-        <ul id="team2list"></ul>
-        <div class="user_list"></div>
-        <h3>Team 2 counter</h3>
-        <div id="countertag2">
-          <p id="pcounter2">0</p>
-        </div>
-
-        <h3>Users online</h3>
-        <ul id="users"></ul>
-      </div>
-      <div id="full_chat_container">
-        <ul id="messages"></ul>
-        <p id="yo"></p>
-
-        <form id="form" action="">
-          <input id="input" autocomplete="off" />
-          <button>Send</button>
-        </form>
-      </div>
+  
+    <div id="game_container" style="visibility: hidden;">
+      <h1 class="game_title">RUN!RUN!RUN!</h1>
+<div class="game_middle">
+  <div class="teams_list">
+    <h3>Team 1</h3>
+    <ul id="team1list"></ul>
+    <h3>Team 1 counter</h3>
+    <div id="countertag">
+      <p id="pcounter1">0</p>
     </div>
+    <h3>Team 2</h3>
+    <ul id="team2list"></ul>
+    <div class="user_list"></div>
+    <h3>Team 2 counter</h3>
+    <div id="countertag2">
+      <p id="pcounter2">0</p>
+    </div>
+  </div>
+      <div class="canvasandinput">
+    <canvas
+      id="canvasHolder"
+      height="400px"
+      width="800px"
+      
+    ></canvas>
+    <input id="inputtest" value="" type="text" />
+  </div>
+
+  <div id="full_container">
+    <h3 class="chat_title">Chat</h3>
+
+    <div id="full_chat_container">
+      <div>
+      <ul id="messages"></ul>
+      <p id="yo"></p>
+    </div>
+    <div>
+      <form id="form" action="">
+        <input id="input" autocomplete="off" />
+        <!-- <button>Send</button> -->
+      </form>
+    </div>
+    </div>
+  </div>
+</div>
+    </div>
+  
     <script
       src="https://cdn.socket.io/4.4.0/socket.io.min.js"
       integrity="sha384-1fOn6VtTq3PWwfsOrk45LnYcGosJwzMHv+Xh/Jx5303FVOXzEnw0EpLv30mtjmlj"

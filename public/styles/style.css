@@ -17,9 +17,37 @@
 }
 
 #canvasHolder {
-  visibility: hidden;
+  background-color: rgb(231, 221, 92);
+  border-radius: 5px;
+  visibility: visible;
 }
 
+#yo {
+  margin: 4px;
+}
+
+.chat_title {
+  margin: 0;
+    text-align: center;
+    color: wheat;
+}
+
+.canvasandinput {
+  display: flex;
+  flex-direction: column;
+  width: 68%;
+}
+
+#inputtest {
+  align-self: center;
+  height: 35px;
+  width: 55px;
+  border: none;
+  border-radius: 9px;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 25px;
+}
 
 .users_list_container {
   position: absolute;
@@ -46,6 +74,7 @@ body {
     padding-bottom: 3rem;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
       Helvetica, Arial, sans-serif;
+    background-color: #4978cd;
   }
   
 .checkbox_title {
@@ -58,12 +87,12 @@ body {
   text-shadow: 1px 1px 2px #231818;
 }
 
-#main_title {
+ #main_title {
   font-family: 'catchy_melodyregular';
   font-size: 85px;
   color: #e7dd5c;
   position: fixed;
-  /* top: 10vh; */
+  top: 10vh; 
   width: 100%;
   text-align: center;
   z-index: 999;
@@ -74,16 +103,41 @@ body {
   visibility: visible;
 }
 
+.game_title {
+  font-family: 'catchy_melodyregular';
+  font-size: 80px;
+  color: #e7dd5c;
+  /* position: fixed; */
+  /* top: 10vh; */
+  align-self: flex-start;
+  text-align: center;
+  /* z-index: 999; */
+  justify-self: center;
+  align-self: center;
+  text-shadow: 1px 1px 2px #1b1b1b;
+  visibility: visible;
+  margin-top: -37px;
+  margin-bottom: 15px;
+}
+
+.game_middle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 625px;
+}
+
+.teams_list {
+  width: 10%;
+}
 
   #form {
-    background: rgba(0, 0, 0, 0.15);
-    padding: 0.25rem;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+ 
     display: flex;
-    height: 3rem;
+    height: 40px;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
     box-sizing: border-box;
     backdrop-filter: blur(10px);
   }
@@ -151,6 +205,18 @@ body {
     font-size: 18px;
 }
 
+#game_container {
+    visibility: visible;
+
+    display: flex;
+   
+    flex-direction: column;
+    margin-top: 50px;
+    align-items: center;
+    justify-content: center;
+   
+}
+
 #homepage {
   position: absolute;
   top: 0;
@@ -196,13 +262,17 @@ body {
   #messages {
     list-style-type: none;
     margin: 0;
+    height: 500px;
     padding: 0;
+    overflow-y: auto;
+    background-color: #73a0f3;
+    border-radius: 8px;
   }
   #messages > li {
     padding: 0.5rem 1rem;
   }
   #messages > li:nth-child(odd) {
-    background: #efefef;
+    background: #396fd3;
   }
 
   #users > li {
@@ -211,4 +281,7 @@ body {
 
   #full_container {
    display: none;
+  
+   width: 20%;
+   height: 631px;
   }

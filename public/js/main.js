@@ -42,7 +42,7 @@ let number2 = team2list.length;
 form.addEventListener("submit", function (e) {
   e.preventDefault();
   if (input.value) {
-    socket.emit("chat message", `${username.value} dit: ${input.value}`);
+    socket.emit("chat message", `${username.value}: ${input.value}`);
     input.value = "";
   }
 });
@@ -63,6 +63,7 @@ form1.addEventListener("submit", function (e) {
     homepage.style.visibility="hidden";
     canvasHolder.style.visibility = "visible";
     fullcontainer.style.display = "block";
+    document.getElementById("game_container").style.visibility = "visible"
     if (team1.checked) {
     socket.emit("choose team", { username: username.value, teamnumber: team1.value });
     socket.emit("add user", username.value);
@@ -119,7 +120,8 @@ socket.on("chat message", function (msg) {
   var item = document.createElement("li");
   item.textContent = msg;
   messages.appendChild(item);
-  window.scrollTo(0, document.body.scrollHeight);
+  messages.scrollTo(0, messages.scrollHeight)
+  // window.scrollTo(0, document.body.scrollHeight);
   yo.innerHTML = "";
 });
 
@@ -218,8 +220,8 @@ socket.on("new user", function (username) {
   socket.emit("user list", userList);
   socket.emit("team1 list", team1list)
   socket.emit("team2 list", team2list)
-
-  window.scrollTo(0, document.body.scrollHeight);
+  messages.scrollTo(0, messages.scrollHeight)
+  // window.scrollTo(0, document.body.scrollHeight);
 });
 
 //KEY SEQUENCE TEST
@@ -238,7 +240,7 @@ socket.on("move hero1", (counter) => {
   context = canvas.getContext("2d");
   hero = new GameObject(heroSpritesheet,  //the spritesheet image
       counter,            //x position of hero
-      0,            //y position of hero
+      20,            //y position of hero
       864 ,         //total width of spritesheet image in pixels
       140,          //total height of spritesheet image in pixels
       60,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
@@ -251,7 +253,7 @@ socket.on("show hero1", counter => {
   context = canvas.getContext("2d");
   hero = new GameObject(heroSpritesheet,  //the spritesheet image
       counter,            //x position of hero
-      0,            //y position of hero
+      20,            //y position of hero
       864 ,         //total width of spritesheet image in pixels
       140,          //total height of spritesheet image in pixels
       600000,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
@@ -271,7 +273,7 @@ socket.on("move hero2", (counter) => {
   canvas = document.getElementById("canvasHolder");
   hero2 = new GameObject(heroSpritesheet2,  //the spritesheet image
     counter,            //x position of hero
-    150,            //y position of hero
+    160,            //y position of hero
     1000 ,         //total width of spritesheet image in pixels
     157,          //total height of spritesheet image in pixels
     60,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
@@ -283,7 +285,7 @@ socket.on("show hero2", (counter) => {
   canvas = document.getElementById("canvasHolder");
   hero2 = new GameObject(heroSpritesheet2,  //the spritesheet image
     counter,            //x position of hero
-    150,            //y position of hero
+    160,            //y position of hero
     1000 ,         //total width of spritesheet image in pixels
     157,          //total height of spritesheet image in pixels
     600000,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
@@ -296,7 +298,7 @@ socket.on("stop hero1", (counter) => {
   context = canvas.getContext("2d");
   hero = new GameObject(heroSpritesheet,  //the spritesheet image
       counter,            //x position of hero
-      0,            //y position of hero
+      20,            //y position of hero
       864 ,         //total width of spritesheet image in pixels
       140,          //total height of spritesheet image in pixels
       100000,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
@@ -308,7 +310,7 @@ socket.on("stop hero2", (counter) => {
   canvas = document.getElementById("canvasHolder");
   hero2 = new GameObject(heroSpritesheet2,  //the spritesheet image
     counter,            //x position of hero
-    150,            //y position of hero
+    160,            //y position of hero
     1000 ,         //total width of spritesheet image in pixels
     157,          //total height of spritesheet image in pixels
     100000,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
