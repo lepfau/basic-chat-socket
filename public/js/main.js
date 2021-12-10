@@ -24,7 +24,8 @@ let countertag2 = document.getElementById("countertag2");
 // let countdown = document.getElementById("countdown")
 
 let gameinput = document.getElementById("game_input");
-let startbutton = document.getElementById("start_button")
+let startbutton = document.getElementById("start_button");
+let restartbutton = document.getElementById("restart");
 
 let startList = [];
 
@@ -40,19 +41,22 @@ let counter2front = 0;
 // let counter = 4;
 
 
+
 startbutton.addEventListener("click", () => {
-  socket.emit("launch game")
+  socket.emit("launch game");
+  socket.emit("start time")
 })
 
-let restartbutton = document.getElementById("restart");
+
 restartbutton.addEventListener("click", () => {
   socket.emit("restart", counter1front, counter2front)
+  socket.emit("stop time")
 })
 
 socket.on("restart", (countertochange1, countertochange2) => {
   countdown.innerHTML = "GO !"
-  // socket.emit("timer", counter)
   socket.emit("launch game")
+  socket.emit("start time")
   socket.emit("sync counter1", counter1front)
   socket.emit("stop hero1", counter1front)
   socket.emit("sync counter2", counter2front)
@@ -67,12 +71,25 @@ socket.on("launch game", () => {
 
 socket.on("winner1", () => {
   countdown.innerHTML = "TEAM 1 WINS !!!"
+  chronoStop()
+  socket.emit("stop time")
   //  socket.emit("restart", counter1front)
 })
 
 socket.on("winner2", () => {
   countdown.innerHTML = "TEAM 2 WINS !!!"
-  //  socket.emit("restart", counter2front)
+  chronoStop()
+  socket.emit("stop time")
+    //  socket.emit("restart", counter2front)
+})
+
+socket.on("start time", () => {
+  chronoStopReset();
+  chronoStart();
+})
+
+socket.on("stop time", () => {
+  chronoStop();
 })
 
 socket.on("sync counter1", (counter) => {
@@ -114,6 +131,7 @@ socket.on("move hero2", (counter) => {
     8);           //number of sprites in the spritesheet
   loop2();
   socket.emit("winner2", counter)
+  
 })
 
 

@@ -6,6 +6,8 @@ const { start } = require('repl');
 
 const port = process.env.PORT || 3000;
 
+
+
 const io = require("socket.io")(http, {
   cors: {
     origin: port,
@@ -159,6 +161,14 @@ io.on('connection', (socket) => {
     countertochange1 = counter1 - 5;
     countertochange2 = counter2 - 5;
     io.emit("restart")
+  })
+
+  socket.on("start time", () => {
+    io.emit("start time")
+  })
+
+  socket.on("stop time", () => {
+    io.emit("stop time")
   })
 
 

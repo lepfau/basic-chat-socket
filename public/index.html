@@ -37,6 +37,11 @@
     <h1 class="game_title">RUN!RUN!RUN!</h1>
     <div class="game_middle">
       <div class="teams_list">
+        <span id="chronotime">00:00:00</span>
+<form name="chronoForm">
+    <input style="visibility: hidden;" type="button" name="startstop" value="start!" onClick="chronoStart()" />
+    <input style="visibility: hidden;" type="button" name="reset" value="reset!" onClick="chronoReset()" />
+</form>
         <h3 class="team_title">Team 1</h3>
         <ul id="team1list"></ul>
 
@@ -89,13 +94,15 @@
     integrity="sha384-1fOn6VtTq3PWwfsOrk45LnYcGosJwzMHv+Xh/Jx5303FVOXzEnw0EpLv30mtjmlj" crossorigin="anonymous">
   </script>
   <script>
-    const socket = io("http://localhost:3000", {
+    const socket = io("https://edbasicchat.herokuapp.com/", {
       withCredentials: true,
       extraHeaders: {
         "my-custom-header": "abcd",
       },
     });
   </script>
+
+  <script src="./js/chrono.js"></script>
   <script src="./js/main.js"></script>
   <script src="./js/users.js"></script>
   <script src="./js/chat.js"></script>
