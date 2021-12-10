@@ -1,13 +1,13 @@
 var canvas, context;
 
 var hero;
+var hero2;
 var heroSpritesheet = new Image();
 
 var heroSpritesheet2 = new Image();
 
-heroSpritesheet.src = "./js/scottpilgrim.png";
-heroSpritesheet2.src = "./js/ramonaflowers.png"
-
+heroSpritesheet.src = "./../assets/scottpilgrim.png";
+heroSpritesheet2.src = "./../assets/ramonaflowers.png"
 
 //GameObject constructor
 function GameObject(spritesheet, x, y, width, height, timePerFrame, numberOfFrames) {
@@ -50,7 +50,6 @@ function GameObject(spritesheet, x, y, width, height, timePerFrame, numberOfFram
     }
 }
 
-
 //The Game Loop
 function stopHero() {
     draw();
@@ -75,37 +74,57 @@ function draw() {
     hero2.draw(context)
 }
 
+window.onload = () => {
+canvas = document.getElementById("canvasHolder");
+context = canvas.getContext("2d");
+hero = new GameObject(heroSpritesheet,  //the spritesheet image
+    counter1front,            //x position of hero
+    200,            //y position of hero
+    864 ,         //total width of spritesheet image in pixels
+    140,          //total height of spritesheet image in pixels
+    60,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
+    8);           //number of sprites in the spritesheet
+
+hero2 = new GameObject(heroSpritesheet2,  //the spritesheet image
+    counter2front,            //x position of hero
+    225,            //y position of hero
+    1000 ,         //total width of spritesheet image in pixels
+    157,          //total height of spritesheet image in pixels
+    60,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
+     8);           //number of sprites in the spritesheet
+
+stopHero()
+}
+
 
 var typingTimer;                //timer identifier
 var doneTypingInterval = 300;  //time in ms, 5 second for example
 
 
-inputtest.addEventListener("input", () => {
-    if (inputtest.value === "xc" && team1.checked && countdown.innerHTML === "GO !") {
-        inputtest.value = "";
+gameinput.addEventListener("input", () => {
+    if (gameinput.value === "xc" && team1.checked && countdown.innerHTML === "GO !") {
+        gameinput.value = "";
         socket.emit("increase counter1")
         socket.emit("sync counter1", counter1front)
         socket.emit("move hero1", counter1front)
         socket.emit("sync counter2", counter2front)
     }
 
-    else if (inputtest.value === "xc" && team2.checked && countdown.innerHTML === "GO !") {
-        inputtest.value = "";
+    else if (gameinput.value === "xc" && team2.checked && countdown.innerHTML === "GO !") {
+        gameinput.value = "";
         socket.emit("increase counter2")
         socket.emit("sync counter1", counter1front)
         socket.emit("sync counter2", counter2front)
         socket.emit("move hero2", counter2front)
     }
 
-    else if (inputtest.value.length >= 3) inputtest.value = ""
-
-    else if (team1.checked && inputtest.value === "") socket.emit("stop hero1", counter1front);
-    else if (team2.checked && inputtest.value === "") socket.emit("stop hero2", counter2front);
+    else if (gameinput.value.length >= 3) gameinput.value = ""
+    else if (team1.checked && gameinput.value === "") socket.emit("stop hero1", counter1front);
+    else if (team2.checked && gameinput.value === "") socket.emit("stop hero2", counter2front);
 
 })
 
-
-inputtest.addEventListener('keyup', function () {
+gameinput.addEventListener('keyup', function () {
     clearTimeout(typingTimer);
     typingTimer = setTimeout(doneTyping, doneTypingInterval);
 });
@@ -113,7 +132,6 @@ inputtest.addEventListener('keyup', function () {
 function doneTyping() {
     if (team1.checked) socket.emit("stop hero1", counter1front);
     if (team2.checked) socket.emit("stop hero2", counter2front);
-
 }
 
 

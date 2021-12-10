@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'sunny_spellsregular';
   src: 
-       url('./../js/sunnyspellsregular-mv9ze-webfont.woff') format('woff');
+       url('./../assets/sunnyspellsregular-mv9ze-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 
@@ -9,21 +9,21 @@
 
 @font-face {
   font-family: 'catchy_melodyregular';
-  src: url('./../js/catchymelodyregular-owa1o-webfont.woff2') format('woff2'),
-       url('./../js/catchymelodyregular-owa1o-webfont.woff') format('woff');
+  src: url('./../assets/catchymelodyregular-owa1o-webfont.woff2') format('woff2'),
+       url('./../assets/catchymelodyregular-owa1o-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 
 }
 
 #canvasHolder {
-  background: url("./../js/City2tt.png");
+  background: url("./../assets/City2tt.png");
   background-size: 99% 94%;
   border-radius: 5px;
   visibility: visible;
 }
 
-#yo {
+#is_typing {
   margin: 4px;
 }
 
@@ -66,7 +66,7 @@
   font-size: 32px;
 }
 
-#inputtest {
+#game_input {
   align-self: center;
   height: 35px;
   width: 55px;
@@ -175,7 +175,7 @@ hr {
   margin-left: 6px;
 }
 
-  #form {
+  #chat_form {
  
     display: flex;
     height: 40px;
@@ -189,7 +189,7 @@ hr {
     color: white;
   }
 
-  #form1 {
+  #user_form {
     height: 100vh;
     width: 100%;
   
@@ -336,7 +336,7 @@ hr {
 }
   
 
-  #input {
+  #chat_input {
     border: none;
     padding: 0 1rem;
     flex-grow: 1;
@@ -376,7 +376,7 @@ hr {
     color:green
   }
 
-  #full_container {
+  #full_chat_container {
    display: none;
    margin-right: 5px;
    width: 18%;

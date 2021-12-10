@@ -122,24 +122,13 @@ io.on('connection', (socket) => {
     io.emit("move hero2", counterfromback2)
   })
 
-  //afficher position initiale hero1
-  socket.on("show hero1", (counterfromback1) => {
-    counterfromback1 = counter1;
-    io.emit("show hero1", counterfromback1)
-  })
-
-  //afficher position initiale hero1
-  socket.on("show hero2", (counterfromback2) => {
-    counterfromback2 = counter2;
-    io.emit("show hero2", counterfromback2)
-  })
-
-
+ 
   //sync counter pour garder la position et envoyer le loop fixe du canvas
   socket.on("stop hero1", counterfromback1 => {
     counterfromback1 = counter1;
     io.emit("stop hero1", counterfromback1)
   })
+  
   //sync counter pour garder la position et envoyer le loop fixe du canvas
   socket.on("stop hero2", counterfromback2 => {
     counterfromback2 = counter2;
@@ -189,6 +178,7 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     io.emit('chat message', `${socket.username} has left the chat`);
+
     let filtered = users.filter(user => user !== socket.username);
     users = filtered;
     io.emit("filtered user", users)
@@ -203,8 +193,6 @@ io.on('connection', (socket) => {
 
     counter1 = 0;
     counter2 = 0;
-
-    console.log(users)
   });
 
 });

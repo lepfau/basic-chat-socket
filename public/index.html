@@ -1,110 +1,109 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Run run run </title>
-    <link rel="stylesheet" href="./styles/style.css" />
-  </head>
-  <body>
-    <div id="countdown"><button id="start_button">START</button></div>
-    <div id="restart"><button id="restart_button">RESTART ↺</button></div>
-    <div id="homepage">
-      <div class="users_list_container">
-        <h3 class="users_list_title">Users online</h3>
-        <ul id="users"></ul>
-      </div>
-      <h1 id="main_title">RUN!RUN!RUN!</h1>
-    <form id="form1" action="">
-    
-      <input id="username" placeholder="enter username..."/>
+
+<head>
+  <title>Run run run </title>
+  <link rel="stylesheet" href="./styles/style.css" />
+</head>
+
+<body>
+  <div id="countdown"><button id="start_button">START</button></div>
+  <div id="restart"><button id="restart_button">RESTART ↺</button></div>
+  <div id="homepage">
+    <div class="users_list_container">
+      <h3 class="users_list_title">Users online</h3>
+      <ul id="users"></ul>
+    </div>
+    <h1 id="main_title">RUN!RUN!RUN!</h1>
+    <form id="user_form" action="">
+      <input id="username" placeholder="enter username..." />
       <div style="color: firebrick" id="error_username"></div>
       <div class="checkbox_container">
         <h3 class="checkbox_title">choose team</h3>
         <div class="checkbox_input">
-      <label class="labelteam" for="myCheck1">Team 1 ( <span id="team1number"></span> users )</label>
-      <input type="checkbox" id="myCheck1" value="team1" />
-    </div>
-    <div class="checkbox_input">
-      <label class="labelteam" for="myCheck2">Team 2 ( <span id="team2number"></span> users )</label>
-      <input type="checkbox" id="myCheck2" value="team2" />
-    </div>
-    </div>
+          <label class="labelteam" for="myCheck1">Team 1 ( <span id="team1number"></span> users )</label>
+          <input type="checkbox" id="myCheck1" value="team1" />
+        </div>
+        <div class="checkbox_input">
+          <label class="labelteam" for="myCheck2">Team 2 ( <span id="team2number"></span> users )</label>
+          <input type="checkbox" id="myCheck2" value="team2" />
+        </div>
+      </div>
       <button class="play_button">Play</button>
     </form>
   </div>
-  
-    <div id="game_container" style="visibility: hidden;">
-      <h1 class="game_title">RUN!RUN!RUN!</h1>
-<div class="game_middle">
-  <div class="teams_list">
-    <h3 class="team_title">Team 1</h3>
-    <ul id="team1list"></ul>
-  
-    <div id="countertag">
-      <p id="pcounter1">0</p>
-    </div>
-    <hr>
-    <h3 class="team_title">Team 2</h3>
-    <ul id="team2list"></ul>
-    <div class="user_list"></div>
-   
-    <div id="countertag2">
-      <p id="pcounter2">0 </p>
-    </div>
-  </div>
+
+  <div id="game_container" style="visibility: hidden;">
+    <h1 class="game_title">RUN!RUN!RUN!</h1>
+    <div class="game_middle">
+      <div class="teams_list">
+        <h3 class="team_title">Team 1</h3>
+        <ul id="team1list"></ul>
+
+        <div id="countertag">
+          <p id="pcounter1">0</p>
+        </div>
+        <hr>
+        <h3 class="team_title">Team 2</h3>
+        <ul id="team2list"></ul>
+        <div class="user_list"></div>
+
+        <div id="countertag2">
+          <p id="pcounter2">0 </p>
+        </div>
+      </div>
       <div class="canvasandinput">
-    <canvas
-      id="canvasHolder"
-      height="400px"
-      width="800px"
-      
-    ></canvas>
-    <div class="input_keys">
-      <div class="key_image_container">
-        <img class="key_image" src="./js/X1.webp"/>
-      <img class="key_image" src="./js/C1.webp"/>
-      <img style="height: 40px; width: 47px;" src="./js/Arrow.png"/>
+        <canvas id="canvasHolder" height="400px" width="800px"></canvas>
+        <div class="input_keys">
+          <div class="key_image_container">
+            <img class="key_image" src="./assets/X1.webp" />
+            <img class="key_image" src="./assets/C1.webp" />
+            <img style="height: 40px; width: 47px;" src="./assets/Arrow.png" />
+          </div>
+          <input id="game_input" value="" type="text" />
+
+        </div>
+
+      </div>
+
+      <div id="full_chat_container">
+        <h3 class="chat_title">Chat</h3>
+
+        <div id="chat_container">
+          <div>
+            <ul id="messages"></ul>
+            <p id="is_typing"></p>
+          </div>
+          <div>
+            <form id="chat_form" action="">
+              <input id="chat_input" autocomplete="off" />
+              <!-- <button>Send</button> -->
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-    <input id="inputtest" value="" type="text" />
-  
   </div>
 
-  </div>
+  <script src="https://cdn.socket.io/4.4.0/socket.io.min.js"
+    integrity="sha384-1fOn6VtTq3PWwfsOrk45LnYcGosJwzMHv+Xh/Jx5303FVOXzEnw0EpLv30mtjmlj" crossorigin="anonymous">
+  </script>
+  <script>
+    const socket = io("http://localhost:3000", {
+      withCredentials: true,
+      extraHeaders: {
+        "my-custom-header": "abcd",
+      },
+    });
+  </script>
+  <script src="./js/main.js"></script>
+  <script src="./js/users.js"></script>
+  <script src="./js/chat.js"></script>
+  <script src="./js/game.js"></script>
 
-  <div id="full_container">
-    <h3 class="chat_title">Chat</h3>
 
-    <div id="full_chat_container">
-      <div>
-      <ul id="messages"></ul>
-      <p id="yo"></p>
-    </div>
-    <div>
-      <form id="form" action="">
-        <input id="input" autocomplete="off" />
-        <!-- <button>Send</button> -->
-      </form>
-    </div>
-    </div>
-  </div>
-</div>
-    </div>
-  
-    <script
-      src="https://cdn.socket.io/4.4.0/socket.io.min.js"
-      integrity="sha384-1fOn6VtTq3PWwfsOrk45LnYcGosJwzMHv+Xh/Jx5303FVOXzEnw0EpLv30mtjmlj"
-      crossorigin="anonymous"
-    ></script>
-    <script>
-      const socket = io("http://localhost:3000", {
-        withCredentials: true,
-        extraHeaders: {
-          "my-custom-header": "abcd",
-        },
-      });
-    </script>
-    <script src="./js/main.js"></script>
-    <script src="./js/game.js"></script>
 
   </script>
-  </body>
+</body>
+
 </html>
