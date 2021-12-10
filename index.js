@@ -36,114 +36,115 @@ let timer = 4;
 
 io.on('connection', (socket) => {
 
+  //////////////////////////////////////CHAT PART/////////////////////////
+
+  //new user message on chat
   socket.on("new user", (username) => {
     socket.broadcast.emit("new user", `${username} has join the chat`)
   })
 
+  //send chat message 
+  socket.on('chat message', msg => {
+    io.emit('chat message', msg);
+  });
+
+  //show user typing
+  socket.on("user typing", typi => {
+    socket.broadcast.emit("user typing", typi)
+  })
+
+  //////////////////////////////////////USERS PART/////////////////////////
+
+  //add user to users list array
   socket.on("add user", (user) => {
     socket.emit("add user", user)
     users.push(user)
     socket.username = user;
-    console.log("team1: " + team1)
-    console.log("team2: " + team2)
   })
 
+  //add user to team list array
   socket.on("choose team", ({ username: user, teamnumber: team }) => {
     socket.emit("choose team", { user: user, team: team })
     if (team === "team1") team1.push(user)
     else team2.push(user)
   })
 
-  socket.on("user list", (userlistfromback) => {
+  //sync back user list array with front user list
+  socket.on("sync user list", (userlistfromback) => {
     userlistfromback = users;
-    socket.emit("user list", userlistfromback)
+    socket.emit("sync user list", userlistfromback)
   });
 
-  socket.on("timer", timerfromback => {
-    timerfromback = timer;
-    socket.emit("timer", timerfromback)
-  })
 
-
-  socket.on("team1 list", (team1listfromback) => {
+  //sync team1 list array from back with team1 array on front
+  socket.on("sync team1 list", (team1listfromback) => {
     team1listfromback = team1;
-    socket.emit("team1 list", team1listfromback)
+    socket.emit("sync team1 list", team1listfromback)
   })
 
-  socket.on("team2 list", (team2listfromback) => {
+  //sync team2 list array from back with team2 array on front
+  socket.on("sync team2 list", (team2listfromback) => {
     team2listfromback = team2;
-    socket.emit("team2 list", team2listfromback)
+    socket.emit("sync team2 list", team2listfromback)
   })
 
-  socket.on('chat message', msg => {
-    io.emit('chat message', msg);
-  });
 
-  socket.on("user typing", typi => {
-    socket.broadcast.emit("user typing", typi)
-    console.log("startList: " + startArray)
+  //////////////////////////////////////GAME PART/////////////////////////
+
+  //sync counter1 from back with counter1 from front
+  socket.on("sync counter1", (counterfromback1) => {
+    counterfromback1 = counter1;
+    io.emit("sync counter1", counterfromback1)
   })
 
-  socket.on("counter1", () => {
+  //sync counter2 from back with counter2 from front
+  socket.on("sync counter2", (counterfromback2) => {
+    counterfromback2 = counter2;
+    io.emit("sync counter2", counterfromback2)
+  })
+
+  socket.on("increase counter1", () => {
     counter1 += 5;
   })
 
-  socket.on("counter2", () => {
+  socket.on("increase counter2", () => {
     counter2 += 5;
   })
 
-  socket.on("show counter1", (counterfromback1) => {
-    counterfromback1 = counter1;
-    io.emit("show counter1", counterfromback1)
-  })
-
-  socket.on("show counter2", (counterfromback2) => {
-    counterfromback2 = counter2;
-    io.emit("show counter2", counterfromback2)
-  })
-
+  //sync counter1 with counter in front (differencier pour le socket on partie counter / hero)
   socket.on("move hero1", (counterfromback1) => {
     counterfromback1 = counter1;
     io.emit("move hero1", counterfromback1)
   })
-
+  //sync counter2 with counter in front (differencier pour le socket on partie counter / hero)
   socket.on("move hero2", (counterfromback2) => {
     counterfromback2 = counter2;
     io.emit("move hero2", counterfromback2)
   })
 
+  //afficher position initiale hero1
   socket.on("show hero1", (counterfromback1) => {
     counterfromback1 = counter1;
     io.emit("show hero1", counterfromback1)
   })
 
+  //afficher position initiale hero1
   socket.on("show hero2", (counterfromback2) => {
     counterfromback2 = counter2;
     io.emit("show hero2", counterfromback2)
   })
 
+
+  //sync counter pour garder la position et envoyer le loop fixe du canvas
   socket.on("stop hero1", counterfromback1 => {
     counterfromback1 = counter1;
     io.emit("stop hero1", counterfromback1)
   })
-
+  //sync counter pour garder la position et envoyer le loop fixe du canvas
   socket.on("stop hero2", counterfromback2 => {
     counterfromback2 = counter2;
     io.emit("stop hero2", counterfromback2)
   })
-
-
-  socket.on("addStartList", (username) => {
-    startArray.push(username);
-  })
-  
-
-
-  socket.on("startList", (startList) => {
-    startList = startArray
-    socket.emit("startList", startList)
-  })
-
 
   socket.on("launch game", () => {
     io.emit("launch game")
@@ -165,13 +166,26 @@ io.on('connection', (socket) => {
 
   socket.on("restart", (countertochange1, countertochange2) => {
     counter1 = 0;
-    counter2 = 0; 
-    
+    counter2 = 0;
     countertochange1 = counter1 - 5;
     countertochange2 = counter2 - 5;
     io.emit("restart")
   })
 
+
+  socket.on("timer", timerfromback => {
+    timerfromback = timer;
+    socket.emit("timer", timerfromback)
+  })
+
+  socket.on("addStartList", (username) => {
+    startArray.push(username);
+  })
+
+  socket.on("startList", (startList) => {
+    startList = startArray
+    socket.emit("startList", startList)
+  })
 
   socket.on('disconnect', () => {
     io.emit('chat message', `${socket.username} has left the chat`);
@@ -189,7 +203,6 @@ io.on('connection', (socket) => {
 
     counter1 = 0;
     counter2 = 0;
-
 
     console.log(users)
   });

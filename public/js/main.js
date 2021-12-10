@@ -81,14 +81,14 @@ form1.addEventListener("submit", function (e) {
     socket.emit("choose team", { username: username.value, teamnumber: team1.value });
     socket.emit("add user", username.value);
     socket.emit("new user", username.value);
-    socket.emit("user list", userList);
-    socket.emit("team1 list", team1list)
-    socket.emit("team2 list", team2list)
+    socket.emit("sync user list", userList);
+    socket.emit("sync team1 list", team1list)
+    socket.emit("sync team2 list", team2list)
     socket.emit("startList", startList)
 
-      socket.emit("show counter1", counter1front)
+      socket.emit("sync counter1", counter1front)
       socket.emit("show hero1", counter1front)
-      socket.emit("show counter2", counter2front)
+      socket.emit("sync counter2", counter2front)
       socket.emit("show hero2", counter2front)
       
     }
@@ -96,14 +96,14 @@ form1.addEventListener("submit", function (e) {
       socket.emit("choose team", { username: username.value, teamnumber: team2.value })
       socket.emit("add user", username.value);
     socket.emit("new user", username.value);
-    socket.emit("user list", userList);
-    socket.emit("team1 list", team1list)
-    socket.emit("team2 list", team2list)
+    socket.emit("sync user list", userList);
+    socket.emit("sync team1 list", team1list)
+    socket.emit("sync team2 list", team2list)
     socket.emit("startList", startList)
 
-      socket.emit("show counter1", counter1front)
+      socket.emit("sync counter1", counter1front)
       socket.emit("show hero1", counter1front)
-      socket.emit("show counter2", counter2front)
+      socket.emit("sync counter2", counter2front)
       socket.emit("show hero2", counter2front)
      
     }
@@ -125,9 +125,9 @@ form1.addEventListener("submit", function (e) {
 
 });
 
-  socket.emit("user list", userList);
-  socket.emit("team1 list", team1list)
-  socket.emit("team2 list", team2list)
+  socket.emit("sync user list", userList);
+  socket.emit("sync team1 list", team1list)
+  socket.emit("sync team2 list", team2list)
   socket.emit("startList", startList)
   socket.emit("timer", counter)
   
@@ -155,30 +155,29 @@ countdown.innerHTML = "GO !"
   socket.emit("timer", counter)
 socket.emit("launch game")
 
-socket.emit("show counter1", counter1front)
+socket.emit("sync counter1", counter1front)
 socket.emit("show hero1", counter1front)
-socket.emit("show counter2", counter2front)
+socket.emit("sync counter2", counter2front)
 socket.emit("show hero2", counter2front)
 
 canvas = document.getElementById("canvasHolder");
 context = canvas.getContext("2d");
 hero = new GameObject(heroSpritesheet,  //the spritesheet image
     counter1front,            //x position of hero
-    20,            //y position of hero
+    200,            //y position of hero
     864 ,         //total width of spritesheet image in pixels
     140,          //total height of spritesheet image in pixels
-    600000,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
+    60,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
     8);           //number of sprites in the spritesheet
 
 hero2 = new GameObject(heroSpritesheet2,  //the spritesheet image
     counter2front,            //x position of hero
-    160,            //y position of hero
+    225,            //y position of hero
     1000 ,         //total width of spritesheet image in pixels
     157,          //total height of spritesheet image in pixels
-    600000,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
+    60,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
      8);           //number of sprites in the spritesheet
-loop();
-
+loop2();
   })
  
  
@@ -200,7 +199,7 @@ socket.on("user typing", function (typi) {
   yo.innerHTML = typi;
 });
 
-socket.on("user list", function (userlistfromback) {
+socket.on("sync user list", function (userlistfromback) {
   userslisting.innerHTML = "";
   var items = userslisting.getElementsByTagName("li");
   if(userlistfromback.length > 0) {
@@ -217,7 +216,7 @@ socket.on("user list", function (userlistfromback) {
 });
 
 
-socket.on("team1 list", function (team1listfromback) {
+socket.on("sync team1 list", function (team1listfromback) {
   team1listing.innerHTML = "";
   team1listfromback.forEach(el => {
     var item = document.createElement("li");
@@ -228,7 +227,7 @@ socket.on("team1 list", function (team1listfromback) {
 
 })
 
-socket.on("team2 list", function (team2listfromback) {
+socket.on("sync team2 list", function (team2listfromback) {
   team2listing.innerHTML = "";
   team2listfromback.forEach(el => {
     var item = document.createElement("li");
@@ -287,9 +286,9 @@ socket.on("new user", function (username) {
   var item = document.createElement("li");
   item.textContent = username;
   messages.appendChild(item);
-  socket.emit("user list", userList);
-  socket.emit("team1 list", team1list)
-  socket.emit("team2 list", team2list)
+  socket.emit("sync user list", userList);
+  socket.emit("sync team1 list", team1list)
+  socket.emit("sync team2 list", team2list)
   messages.scrollTo(0, messages.scrollHeight)
   // window.scrollTo(0, document.body.scrollHeight);
 });
@@ -297,7 +296,7 @@ socket.on("new user", function (username) {
 //KEY SEQUENCE TEST
 ///////////////////////////////////////////////////////////
 
-socket.on("show counter1", (counter) => {
+socket.on("sync counter1", (counter) => {
   countertag.innerHTML = "";
   let item = document.createElement("p");
   item.innerText = `${counter / 10} meters`
@@ -338,7 +337,7 @@ socket.on("show hero1", counter => {
   loop2();
 })
 
-socket.on("show counter2", (counter) => {
+socket.on("sync counter2", (counter) => {
   countertag2.innerHTML = "";
   let item = document.createElement("p");
   item.innerText = `${counter / 10} meters`
@@ -381,7 +380,7 @@ socket.on("stop hero1", (counter) => {
       140,          //total height of spritesheet image in pixels
       100000,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
       8);           //number of sprites in the spritesheet
-  loop();
+  stopHero();
 })
 
 socket.on("stop hero2", (counter) => {
@@ -393,7 +392,7 @@ socket.on("stop hero2", (counter) => {
     157,          //total height of spritesheet image in pixels
     100000,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
      8);           //number of sprites in the spritesheet
-loop2();
+stopHero();
 } )
 
 
