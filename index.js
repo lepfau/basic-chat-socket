@@ -56,11 +56,12 @@ io.on('connection', (socket) => {
   //add user to users list array
   socket.on("add user", ({username: user, teamnumber: team}) => {
   socket.username = user;
+  users.push(user)
   let targetedRoom = roomsListObject.find(room => room.name === socket.roomname);
   socket.targetroom = targetedRoom;
   if(team === "team1") {targetedRoom.team1.push(user);}
   else {targetedRoom.team2.push(socket.username)};
-  users.push(user)
+  
   });
 
   //new user message on chat
@@ -71,13 +72,13 @@ io.on('connection', (socket) => {
   //send chat message 
   socket.on('chat message', msg => {
     io.to(socket.roomname).emit('chat message', msg)
-    console.log(socket.roomname)
+   
   });
 
   //show user typing
   socket.on("user typing", typi => {
     socket.to(socket.roomname).emit("user typing", typi)
-    console.table(roomsListObject);
+console.log(users)
   })
 
   //////////////////////////////////////USERS PART/////////////////////////
@@ -124,7 +125,6 @@ io.on('connection', (socket) => {
 
   socket.on("increase counter1", () => {
     socket.targetroom.counter1 += 5;
-    console.table(roomsListObject);
   });
 
   socket.on("increase counter2", () => {
@@ -189,12 +189,16 @@ io.on('connection', (socket) => {
 
 
   socket.on('disconnect', () => {
+
+    socket.leave(socket.roomname);
+
     io.to(socket.roomname).emit('chat message', `${socket.username} has left the chat`);
 
     let filtered = users.filter(user => user !== socket.username);
     users = filtered;
     io.to(socket.roomname).emit("filtered user", users)
 
+    if(typeof socket.targetroom !== "undefined") {
     let filtered2 = socket.targetroom.team1.filter(user => user !== socket.username)
     socket.targetroom.team1 = filtered2;
     io.to(socket.roomname).emit("filtered team1", socket.targetroom.team1)
@@ -202,6 +206,7 @@ io.on('connection', (socket) => {
     let filtered3 = socket.targetroom.team2.filter(user => user !== socket.username)
     socket.targetroom.team2 = filtered3;
     io.to(socket.roomname).emit("filtered team2", socket.targetroom.team2)
+    }
     // counter1 = 0;
     // counter2 = 0;
   });

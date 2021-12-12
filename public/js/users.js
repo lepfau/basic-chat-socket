@@ -2,6 +2,8 @@ let userList = [];
 let team1list = [];
 let team2list = [];
 
+socket.emit("sync user list", userList);
+
 
 team1.addEventListener("click", function () {
     team2.checked = false

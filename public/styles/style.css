@@ -113,7 +113,7 @@ body {
 .checkbox_title {
   font-family: "catchy_melodyregular";
   text-align: center;
-  font-size: 30px;
+  font-size: 50px;
   font-weight: 100;
   margin: 10px;
   color: #964f4f;
@@ -125,7 +125,6 @@ body {
   font-size: 85px;
   color: #e7dd5c;
   position: fixed;
-  top: 10vh; 
   width: 100%;
   text-align: center;
   z-index: 999;
