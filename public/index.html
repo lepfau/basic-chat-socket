@@ -28,6 +28,8 @@
           <label class="labelteam" for="myCheck2">Team 2 ( <span id="team2number"></span> users )</label>
           <input type="checkbox" id="myCheck2" value="team2" />
         </div>
+        <input type="text" id="roomname" placeholder="room name"/>
+      
       </div>
       <button class="play_button">Play</button>
     </form>
@@ -89,21 +91,19 @@
       </div>
     </div>
   </div>
-
   <script src="https://cdn.socket.io/4.4.0/socket.io.min.js"
     integrity="sha384-1fOn6VtTq3PWwfsOrk45LnYcGosJwzMHv+Xh/Jx5303FVOXzEnw0EpLv30mtjmlj" crossorigin="anonymous">
   </script>
   <script>
-    const socket = io("https://edbasicchat.herokuapp.com/", {
+    const socket = io("https://edbasicchat.herokuapp.com", {
       withCredentials: true,
       extraHeaders: {
         "my-custom-header": "abcd",
       },
     });
   </script>
-
-  <script src="./js/chrono.js"></script>
   <script src="./js/main.js"></script>
+  <script src="./js/chrono.js"></script>
   <script src="./js/users.js"></script>
   <script src="./js/chat.js"></script>
   <script src="./js/game.js"></script>

@@ -9,15 +9,21 @@ var heroSpritesheet2 = new Image();
 heroSpritesheet.src = "./../assets/scottpilgrim.png";
 heroSpritesheet2.src = "./../assets/ramonaflowers.png"
 
+
+// socket.emit("sync user list", userList);
+
+
+
 //GameObject constructor
-function GameObject(spritesheet, x, y, width, height, timePerFrame, numberOfFrames) {
+function GameObject(spritesheet, x, y, width, height, timePerFrame, numberOfFrames ) {
     this.spritesheet = spritesheet;             //the spritesheet image
     this.x = x;                                 //the x coordinate of the object
     this.y = y;                                 //the y coordinate of the object
     this.width = width;                         //width of spritesheet
     this.height = height;                       //height of spritesheet
     this.timePerFrame = timePerFrame;           //time in(ms) given to each frame
-    this.numberOfFrames = numberOfFrames || 1;  //number of frames(sprites) in the spritesheet, default 1
+    this.numberOfFrames = numberOfFrames || 1;
+      //number of frames(sprites) in the spritesheet, default 1
 
     //current frame index pointer
     this.frameIndex = 0;

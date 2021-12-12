@@ -13,13 +13,15 @@ team1.addEventListener("click", function () {
 
 userform.addEventListener("submit", function (e) {
     e.preventDefault();
+    socket.emit("join room", roomnamefront.value);
+    
     if ((username.value && username.value !== " ") && (team1.checked || team2.checked)) {
   
       if (team1.checked) {
-        socket.emit("choose team", { username: username.value, teamnumber: team1.value });
+        socket.emit("add user", { username: username.value, teamnumber: team1.value });
     }
     else if (team2.checked) {
-        socket.emit("choose team", { username: username.value, teamnumber: team2.value })
+        socket.emit("add user", { username: username.value, teamnumber: team2.value })
     }
         userform.style.visibility = "hidden";
         maintitle.style.visibility = "hidden";
@@ -27,13 +29,9 @@ userform.addEventListener("submit", function (e) {
         canvasHolder.style.visibility = "visible";
         fullchatcontainer.style.display = "block";
         document.getElementById("game_container").style.visibility = "visible"
-  
-        socket.emit("add user", username.value);
         socket.emit("new user", username.value);
-        socket.emit("sync user list", userList);
-        socket.emit("sync team1 list", team1list)
+         socket.emit("sync team1 list", team1list)
         socket.emit("sync team2 list", team2list)
-        socket.emit("startList", startList)
         socket.emit("sync counter1", counter1front)
         socket.emit("stop hero1", counter1front)
         socket.emit("sync counter2", counter2front)
@@ -54,9 +52,6 @@ userform.addEventListener("submit", function (e) {
     }
   });
 
-socket.emit("sync user list", userList);
-socket.emit("sync team1 list", team1list)
-socket.emit("sync team2 list", team2list)
 
 socket.on("new user", function (username) {
     var item = document.createElement("li");
@@ -70,7 +65,6 @@ socket.on("new user", function (username) {
 
 socket.on("sync user list", function (userlistfromback) {
     userslisting.innerHTML = "";
-    var items = userslisting.getElementsByTagName("li");
     if(userlistfromback.length > 0) {
     userlistfromback.forEach((el) => {
       var item = document.createElement("li");
@@ -131,6 +125,7 @@ socket.on("sync user list", function (userlistfromback) {
       userslisting.appendChild(item);
     });
   })
+
 
   socket.on("disconnect", () => {
     socket.emit("filtered user", userList);

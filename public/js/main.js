@@ -27,11 +27,14 @@ let gameinput = document.getElementById("game_input");
 let startbutton = document.getElementById("start_button");
 let restartbutton = document.getElementById("restart");
 
+
 let startList = [];
 
 let counter1front = 0;
 let counter2front = 0;
 
+
+let roomnamefront = document.getElementById("roomname")
 
 // socket.emit("startList", startList)
 // socket.emit("timer", counter)
@@ -39,6 +42,10 @@ let counter2front = 0;
 // let number1= team1list.length;
 // let number2 = team2list.length;
 // let counter = 4;
+
+// socket.on("join room", room => {
+//   room = roomname.value;
+// })
 
 
 
@@ -52,6 +59,8 @@ restartbutton.addEventListener("click", () => {
   socket.emit("restart", counter1front, counter2front)
   socket.emit("stop time")
 })
+
+
 
 socket.on("restart", (countertochange1, countertochange2) => {
   countdown.innerHTML = "GO !"
@@ -125,10 +134,10 @@ socket.on("move hero2", (counter) => {
   hero2 = new GameObject(heroSpritesheet2,  //the spritesheet image
     counter,            //x position of hero
     225,            //y position of hero
-    1000,         //total width of spritesheet image in pixels
+    1000 ,         //total width of spritesheet image in pixels
     157,          //total height of spritesheet image in pixels
     60,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
-    8);           //number of sprites in the spritesheet
+     8);           //number of sprites in the spritesheet
   loop2();
   socket.emit("winner2", counter)
   
@@ -154,10 +163,10 @@ socket.on("stop hero2", (counter) => {
   hero2 = new GameObject(heroSpritesheet2,  //the spritesheet image
     counter,            //x position of hero
     225,            //y position of hero
-    1000,         //total width of spritesheet image in pixels
+    1000 ,         //total width of spritesheet image in pixels
     157,          //total height of spritesheet image in pixels
-    100000,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
-    8);           //number of sprites in the spritesheet
+    600000,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
+     8);           //number of sprites in the spritesheet
   stopHero();
 })
 
