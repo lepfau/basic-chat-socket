@@ -96,7 +96,7 @@ socket.on("sync user list", function (userlistfromback) {
       item.textContent = el;
       team1listing.appendChild(item)
         })
-        team1number.innerHTML = team1listfromback.length;
+     
   })
   
   socket.on("sync team2 list", function (team2listfromback) {
@@ -106,7 +106,7 @@ socket.on("sync user list", function (userlistfromback) {
       item.textContent = el;
       team2listing.appendChild(item)
     })
-    team2number.innerHTML = team2listfromback.length;
+ 
   })
   
   socket.on("filtered team1", function (updatedlist) {

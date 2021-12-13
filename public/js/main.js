@@ -63,13 +63,27 @@ restartbutton.addEventListener("click", () => {
 
 
 socket.on("restart", (countertochange1, countertochange2) => {
-  countdown.innerHTML = "GO !"
-  socket.emit("launch game")
-  socket.emit("start time")
+  countdown.innerText = "";
+  chronoStopReset();
+  socket.emit("zero counters");
   socket.emit("sync counter1", counter1front)
   socket.emit("stop hero1", counter1front)
   socket.emit("sync counter2", counter2front)
   socket.emit("stop hero2", counter2front)
+  socket.emit("stop time");
+  let item = document.createElement("BUTTON");
+  item.innerHTML = "START"
+  item.setAttribute("id", "start_button");
+  countdown.appendChild(item);
+  item.addEventListener("click", () => {
+    socket.emit("stop time")
+    socket.emit("launch game");
+    socket.emit("sync counter1", counter1front)
+    socket.emit("stop hero1", counter1front)
+    socket.emit("sync counter2", counter2front)
+    socket.emit("stop hero2", counter2front)
+    socket.emit("start time")
+  })
 })
 
 
@@ -89,7 +103,7 @@ socket.on("winner2", () => {
   countdown.innerHTML = "TEAM 2 WINS !!!"
   chronoStop()
   socket.emit("stop time")
-    //  socket.emit("restart", counter2front)
+  //  socket.emit("restart", counter2front)
 })
 
 socket.on("start time", () => {
@@ -134,13 +148,13 @@ socket.on("move hero2", (counter) => {
   hero2 = new GameObject(heroSpritesheet2,  //the spritesheet image
     counter,            //x position of hero
     225,            //y position of hero
-    1000 ,         //total width of spritesheet image in pixels
+    1000,         //total width of spritesheet image in pixels
     157,          //total height of spritesheet image in pixels
     60,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
-     8);           //number of sprites in the spritesheet
+    8);           //number of sprites in the spritesheet
   loop2();
   socket.emit("winner2", counter)
-  
+
 })
 
 
@@ -163,10 +177,10 @@ socket.on("stop hero2", (counter) => {
   hero2 = new GameObject(heroSpritesheet2,  //the spritesheet image
     counter,            //x position of hero
     225,            //y position of hero
-    1000 ,         //total width of spritesheet image in pixels
+    1000,         //total width of spritesheet image in pixels
     157,          //total height of spritesheet image in pixels
     600000,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
-     8);           //number of sprites in the spritesheet
+    8);           //number of sprites in the spritesheet
   stopHero();
 })
 

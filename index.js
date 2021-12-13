@@ -156,7 +156,14 @@ console.log(users)
   })
 
   socket.on("launch game", () => {
+    socket.targetroom.counter1 = 0;
+    socket.targetroom.counter2 = 0;
     io.to(socket.roomname).emit("launch game")
+  })
+
+  socket.on("zero counters", () => {
+    socket.targetroom.counter1 = 0;
+    socket.targetroom.counter2 = 0;
   })
 
   socket.on("winner1", (countertest) => {
@@ -206,7 +213,13 @@ console.log(users)
     let filtered3 = socket.targetroom.team2.filter(user => user !== socket.username)
     socket.targetroom.team2 = filtered3;
     io.to(socket.roomname).emit("filtered team2", socket.targetroom.team2)
+
+    socket.targetroom.counter1 = 0;
+    socket.targetroom.counter2 = 0;
+    io.to(socket.roomname).emit("restart")
     }
+
+  
     // counter1 = 0;
     // counter2 = 0;
   });
