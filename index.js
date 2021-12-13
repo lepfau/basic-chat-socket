@@ -22,22 +22,12 @@ app.get('/', (req, res) => {
 
 let roomsList = [];
 let roomsListObject = [];
-
 let users = [];
-
 let team1 = [];
 let team2 = [];
 
-let startArray = [];
-
-let counter1 = 0;
-let counter2 = 0;
-
-let timer = 4;
-
 
 io.on('connection', (socket) => {
-  // io.to("some room").emit("some event");
   //////////////////////////////////////CHAT PART/////////////////////////
   socket.on("join room", (room) => {
     socket.roomname = room;
@@ -53,6 +43,13 @@ io.on('connection', (socket) => {
     });
   }})
 
+  socket.on("room infos", (roominfos) => {
+    let targetedRoom = roomsListObject.find(room => room.name === socket.roomname);
+    roominfos = targetedRoom;
+    socket.emit("room infos", roominfos)
+  })
+
+
   //add user to users list array
   socket.on("add user", ({username: user, teamnumber: team}) => {
   socket.username = user;
@@ -61,8 +58,30 @@ io.on('connection', (socket) => {
   socket.targetroom = targetedRoom;
   if(team === "team1") {targetedRoom.team1.push(user);}
   else {targetedRoom.team2.push(socket.username)};
-  
   });
+
+  // socket.on("change team", (team) => {
+  //   if(team === "team1"){
+  //     let filtered = socket.targetroom.team2.filter(el => el !== socket.username);
+  //     socket.targetroom.team2 = filtered;
+  //     console.log(socket.targetroom)
+  //   }
+  //   else {
+  //     let filtered = socket.targetroom.team1.filter(el => el !== socket.username);
+  //     socket.targetroom.team1 = filtered;
+  //     console.log(socket.targetroom)
+  //   }
+  // })
+
+  // socket.on("apply change team1", () => {
+  //   socket.targetroom.team1.push(socket.username)
+  //   io.to(socket.roomname).emit('apply change team1')
+  // })
+
+  // socket.on("apply change team2", () => {
+  //   socket.targetroom.team2.push(socket.username)
+  //   io.to(socket.roomname).emit('apply change team2')
+  // })
 
   //new user message on chat
   socket.on("new user", (username) => {
@@ -78,7 +97,6 @@ io.on('connection', (socket) => {
   //show user typing
   socket.on("user typing", typi => {
     socket.to(socket.roomname).emit("user typing", typi)
-console.log(users)
   })
 
   //////////////////////////////////////USERS PART/////////////////////////

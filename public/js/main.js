@@ -10,6 +10,8 @@ let team2listing = document.getElementById("team2list");
 let team1 = document.getElementById("myCheck1");
 let team2 = document.getElementById("myCheck2");
 
+let teamchoice = document.getElementById("checkbox_container")
+
 var fullchatcontainer = document.getElementById("full_chat_container")
 var istyping = document.getElementById("is_typing");
 var messages = document.getElementById("messages");
@@ -30,11 +32,16 @@ let restartbutton = document.getElementById("restart");
 
 let startList = [];
 
+
 let counter1front = 0;
 let counter2front = 0;
 
 
-let roomnamefront = document.getElementById("roomname")
+let roomnamefront = document.getElementById("roomname");
+
+let team1userslist = document.getElementById("team1userslist");
+
+
 
 // socket.emit("startList", startList)
 // socket.emit("timer", counter)
@@ -47,6 +54,34 @@ let roomnamefront = document.getElementById("roomname")
 //   room = roomname.value;
 // })
 
+// let changeteam1 = document.getElementById("changeteam1");
+// let changeteam2 = document.getElementById("changeteam2");
+
+// changeteam1.addEventListener("click", () => {
+//   socket.emit("change team", "team1")
+//   socket.emit("apply change team1")
+//   socket.emit("sync team1 list", team1list)
+//   socket.emit("sync team2 list", team2list)
+// })
+
+// changeteam2.addEventListener("click", () => {
+//   socket.emit("change team", "team2")
+//   socket.emit("apply change team2")
+//   socket.emit("sync team1 list", team1list)
+//   socket.emit("sync team2 list", team2list)
+// })
+
+// socket.on("change team", (team) => {
+//   socket.emit("change team", team)
+// })
+
+// socket.on("apply change team1", () => {
+//   socket.emit("apply change team1")
+// })
+
+// socket.on("apply change team2", () => {
+//   socket.emit("apply change team2")
+// })
 
 
 startbutton.addEventListener("click", () => {
@@ -59,8 +94,6 @@ restartbutton.addEventListener("click", () => {
   socket.emit("restart", counter1front, counter2front)
   socket.emit("stop time")
 })
-
-
 
 socket.on("restart", (countertochange1, countertochange2) => {
   countdown.innerText = "";

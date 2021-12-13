@@ -108,6 +108,7 @@ var doneTypingInterval = 300;  //time in ms, 5 second for example
 
 
 gameinput.addEventListener("input", () => {
+    console.log(team1list)
     if (gameinput.value === "xc" && team1.checked && countdown.innerHTML === "GO !") {
         gameinput.value = "";
         socket.emit("increase counter1")
