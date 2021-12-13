@@ -46,12 +46,21 @@ userform.addEventListener("submit", function (e) {
             document.getElementById("error_username").innerHTML = ""
         }, 2000);
     }
-    else {
-        document.getElementById("error_username").innerHTML = "please choose a team"
-        setTimeout(() => {
-            document.getElementById("error_username").innerHTML = ""
-        }, 2000);
+ 
+
+    else if(!roomnamefront.value) {
+      document.getElementById("error_username").innerHTML = "please enter a room name"
+      setTimeout(() => {
+          document.getElementById("error_username").innerHTML = ""
+      }, 2000);
     }
+
+    else if(!team1.checked || !team2.checked) {
+      document.getElementById("error_username").innerHTML = "please choose a team"
+      setTimeout(() => {
+          document.getElementById("error_username").innerHTML = ""
+      }, 2000);
+  }
   });
 
 

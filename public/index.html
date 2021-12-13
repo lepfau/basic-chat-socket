@@ -14,22 +14,28 @@
       <h3 class="users_list_title">Users online</h3>
       <ul id="users"></ul>
     </div>
-    <h1 id="main_title">RUN!RUN!RUN!</h1>
+    <h1 id="main_title"><img class="title_gif1" src="./assets/dc1f5a697d31de36519e43fa58d38485.gif"/> RUN!RUN!RUN!<img class="title_gif" src="./assets/RepulsiveUltimateAardvark-max-1mb.gif"/></h1>
+    
     <form id="user_form" action="">
-      <input id="username" placeholder="enter username..." />
+      <input id="username" placeholder="enter username" />
       <div style="color: firebrick" id="error_username"></div>
+      <div style="display: flex; place-items: center;">
+      <input type="text" id="roomname" placeholder="enter room name" /> <img class="infos" style="height: 30px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Infobox_info_icon.svg/1024px-Infobox_info_icon.svg.png"/>
+      <div class="infotext" style="margin-top: 6px;">Room will be created if it does not exist. Otherwise you join a created room </div>  
+    </div>
+      
       <div class="checkbox_container">
         <h3 class="checkbox_title">choose team</h3>
         <div class="checkbox_input">
-          <label class="labelteam" for="myCheck1">Team 1 ( <span id="team1number"></span> users )</label>
+          <label class="labelteam" for="myCheck1">Team 1</label>
           <input type="checkbox" id="myCheck1" value="team1" />
         </div>
         <div class="checkbox_input">
-          <label class="labelteam" for="myCheck2">Team 2 ( <span id="team2number"></span> users )</label>
+          <label class="labelteam" for="myCheck2">Team 2 </label>
           <input type="checkbox" id="myCheck2" value="team2" />
         </div>
-        <input type="text" id="roomname" placeholder="room name"/>
-      
+
+
       </div>
       <button class="play_button">Play</button>
     </form>
@@ -40,10 +46,10 @@
     <div class="game_middle">
       <div class="teams_list">
         <span id="chronotime">00:00:00</span>
-<form name="chronoForm">
-    <input style="visibility: hidden;" type="button" name="startstop" value="start!" onClick="chronoStart()" />
-    <input style="visibility: hidden;" type="button" name="reset" value="reset!" onClick="chronoReset()" />
-</form>
+        <form name="chronoForm">
+          <input style="visibility: hidden;" type="button" name="startstop" value="start!" onClick="chronoStart()" />
+          <input style="visibility: hidden;" type="button" name="reset" value="reset!" onClick="chronoReset()" />
+        </form>
         <h3 class="team_title">Team 1</h3>
         <ul id="team1list"></ul>
 
