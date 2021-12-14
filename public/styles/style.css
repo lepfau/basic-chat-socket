@@ -176,7 +176,7 @@ footer {
 
 .game_title {
   font-family: 'catchy_melodyregular';
-  font-size: 80px;
+  font-size: 57px;
   color: #e7dd5c;
   /* position: fixed; */
   /* top: 10vh; */
@@ -187,19 +187,22 @@ footer {
   align-self: center;
   text-shadow: 1px 1px 2px #1b1b1b;
   /* visibility: visible; */
-  margin-top: -37px;
-  margin-bottom: 15px;
+  margin-top: -25px;
+  margin-bottom: 0px;
 }
 
 .team_title {
-  font-family: 'Roboto';
+  font-family: "sunny_spellsregular";
   font-size: 30px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 hr {
   height: 1px;
   border: none;
   background-color: black;
+  margin: 28px 0px;
 }
 
 .game_middle {
@@ -267,7 +270,7 @@ hr {
   visibility: hidden;
   font-size: 77px;
   font-family: 'sunny_spellsregular';
-  margin-top: 50px;
+  margin-top: 36px;
   z-index: 999;
 }
 
@@ -302,10 +305,12 @@ hr {
   margin-top: 8px;
 }
 
+
+
 #restart_button {
   font-family: "catchy_melodyregular";
   height: 50px;
-  width: 175px;
+  width: 49px;
   background-color: #bdd4ff;
   border-radius: 8px;
   border: none;

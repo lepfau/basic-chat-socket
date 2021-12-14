@@ -44,6 +44,7 @@ let team1userslist = document.getElementById("team1userslist");
 
 
 startbutton.addEventListener("click", () => {
+  gameinput.focus();
   socket.emit("launch game");
   setTimeout(() => {
     socket.emit("start time")
@@ -96,14 +97,14 @@ socket.on("launch game", () => {
 
 socket.on("winner1", () => {
   countdown.innerHTML = "TEAM 1 WINS !!!"
-  chronoStop()
+  chronoStop();
   socket.emit("stop time")
   //  socket.emit("restart", counter1front)
 })
 
 socket.on("winner2", () => {
   countdown.innerHTML = "TEAM 2 WINS !!!"
-  chronoStop()
+  chronoStop();
   socket.emit("stop time")
   //  socket.emit("restart", counter2front)
 })
@@ -120,6 +121,7 @@ socket.on("stop time", () => {
 socket.on("sync counter1", (counter) => {
   countertag.innerHTML = "";
   let item = document.createElement("p");
+  item.style.margin = "0px"
   item.innerText = `${counter / 10} meters`
   countertag.appendChild(item);
 })

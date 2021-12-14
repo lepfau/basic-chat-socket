@@ -103,20 +103,6 @@ socket.on("new user", function (username) {
   messages.scrollTo(0, messages.scrollHeight)
 });
 
-// socket.on("sync user list", function (userlistfromback) {
-//   userslisting.innerHTML = "";
-//   if (userlistfromback.length > 0) {
-//     userlistfromback.forEach((el) => {
-//       var item = document.createElement("li");
-//       item.textContent = el;
-//       userslisting.appendChild(item);
-//     });
-//   } else {
-//     var item = document.createElement("li");
-//     item.textContent = "Nobody online";
-//     userslisting.appendChild(item);
-//   }
-// });
 
 socket.on("sync team1 list", function (team1listfromback) {
   team1listing.innerHTML = "";
