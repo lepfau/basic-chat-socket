@@ -43,50 +43,12 @@ let team1userslist = document.getElementById("team1userslist");
 
 
 
-// socket.emit("startList", startList)
-// socket.emit("timer", counter)
-
-// let number1= team1list.length;
-// let number2 = team2list.length;
-// let counter = 4;
-
-// socket.on("join room", room => {
-//   room = roomname.value;
-// })
-
-// let changeteam1 = document.getElementById("changeteam1");
-// let changeteam2 = document.getElementById("changeteam2");
-
-// changeteam1.addEventListener("click", () => {
-//   socket.emit("change team", "team1")
-//   socket.emit("apply change team1")
-//   socket.emit("sync team1 list", team1list)
-//   socket.emit("sync team2 list", team2list)
-// })
-
-// changeteam2.addEventListener("click", () => {
-//   socket.emit("change team", "team2")
-//   socket.emit("apply change team2")
-//   socket.emit("sync team1 list", team1list)
-//   socket.emit("sync team2 list", team2list)
-// })
-
-// socket.on("change team", (team) => {
-//   socket.emit("change team", team)
-// })
-
-// socket.on("apply change team1", () => {
-//   socket.emit("apply change team1")
-// })
-
-// socket.on("apply change team2", () => {
-//   socket.emit("apply change team2")
-// })
-
-
 startbutton.addEventListener("click", () => {
   socket.emit("launch game");
-  socket.emit("start time")
+  setTimeout(() => {
+    socket.emit("start time")
+  }, 4000);
+  
 })
 
 
@@ -109,20 +71,27 @@ socket.on("restart", (countertochange1, countertochange2) => {
   item.setAttribute("id", "start_button");
   countdown.appendChild(item);
   item.addEventListener("click", () => {
-    socket.emit("stop time")
     socket.emit("launch game");
-    socket.emit("sync counter1", counter1front)
-    socket.emit("stop hero1", counter1front)
-    socket.emit("sync counter2", counter2front)
-    socket.emit("stop hero2", counter2front)
-    socket.emit("start time")
+    setTimeout(() => {
+      socket.emit("start time")
+    }, 4000);
+    
   })
 })
 
 
 ///////////////////////////////////////////////////////////
 socket.on("launch game", () => {
-  countdown.innerHTML = "GO !"
+  let count = 4;
+  let intervalId = setInterval(() => {
+    count--;
+    countdown.innerHTML = count;
+    if(count <= 0) {
+      clearInterval(intervalId);
+      countdown.innerHTML = "GO !"
+    }
+  }, 1000);
+
 });
 
 socket.on("winner1", () => {

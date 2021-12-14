@@ -16,9 +16,12 @@ team2.addEventListener("click", function () {
 })
 
 
+socket.on("add user", ({username: user, teamnumber: team}) => {
+  socket.emit("add user", ({username: user, teamnumber: team}))
+})
+
 teamchoice.addEventListener("submit", function (e) {
   e.preventDefault();
-
   if (team1.checked || team2.checked) {
     if (team1.checked) {
       socket.emit("add user", { username: username.value, teamnumber: team1.value });
@@ -26,6 +29,7 @@ teamchoice.addEventListener("submit", function (e) {
     else if (team2.checked) {
       socket.emit("add user", { username: username.value, teamnumber: team2.value })
     }
+    
     teamchoice.style.visibility = "hidden";
     canvasHolder.style.visibility = "visible";
     countdown.style.visibility = "visible"
@@ -52,14 +56,15 @@ teamchoice.addEventListener("submit", function (e) {
 
 userform.addEventListener("submit", function (e) {
   e.preventDefault();
+  if(username.value && roomnamefront.value) {
   socket.emit("join room", roomnamefront.value);
   socket.emit("room infos", roominfos)
   teamchoice.style.visibility = "visible";
   userform.style.visibility = "hidden";
   maintitle.style.visibility = "hidden";
   homepage.style.visibility = "hidden";
-
-  if (!username.value) {
+  }
+  else if (!username.value) {
     document.getElementById("error_username").innerHTML = "please submit username"
     setTimeout(() => {
       document.getElementById("error_username").innerHTML = ""
@@ -85,6 +90,8 @@ socket.on("room infos", roominfos => {
   team2infos.innerHTML = `${roominfos.team2.length} users (${roominfos.team2.toString()})`
   roomname.innerHTML = `ROOM #${roominfos.name}`
 })
+
+
 
 socket.on("new user", function (username) {
   var item = document.createElement("li");

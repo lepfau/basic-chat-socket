@@ -41,7 +41,10 @@ io.on('connection', (socket) => {
           counter1: 0,
           counter2: 0,
     });
-  }})
+  }
+  let targetedRoom = roomsListObject.find(room => room.name === socket.roomname);
+  socket.targetroom = targetedRoom;
+})
 
   socket.on("room infos", (roominfos) => {
     let targetedRoom = roomsListObject.find(room => room.name === socket.roomname);
@@ -49,40 +52,16 @@ io.on('connection', (socket) => {
     socket.emit("room infos", roominfos)
   })
 
-
   //add user to users list array
   socket.on("add user", ({username: user, teamnumber: team}) => {
   socket.username = user;
   users.push(user)
-  let targetedRoom = roomsListObject.find(room => room.name === socket.roomname);
-  socket.targetroom = targetedRoom;
-  if(team === "team1") {targetedRoom.team1.push(user);}
-  else {targetedRoom.team2.push(socket.username)};
+
+  if(team === "team1") {socket.targetroom.team1.push(user);}
+  else {socket.targetroom.team2.push(socket.username)};
   });
 
-  // socket.on("change team", (team) => {
-  //   if(team === "team1"){
-  //     let filtered = socket.targetroom.team2.filter(el => el !== socket.username);
-  //     socket.targetroom.team2 = filtered;
-  //     console.log(socket.targetroom)
-  //   }
-  //   else {
-  //     let filtered = socket.targetroom.team1.filter(el => el !== socket.username);
-  //     socket.targetroom.team1 = filtered;
-  //     console.log(socket.targetroom)
-  //   }
-  // })
-
-  // socket.on("apply change team1", () => {
-  //   socket.targetroom.team1.push(socket.username)
-  //   io.to(socket.roomname).emit('apply change team1')
-  // })
-
-  // socket.on("apply change team2", () => {
-  //   socket.targetroom.team2.push(socket.username)
-  //   io.to(socket.roomname).emit('apply change team2')
-  // })
-
+  
   //new user message on chat
   socket.on("new user", (username) => {
     io.to(socket.roomname).emit("new user", `${username} has join the chat`)
@@ -179,10 +158,10 @@ io.on('connection', (socket) => {
     io.to(socket.roomname).emit("launch game")
   })
 
-  socket.on("zero counters", () => {
-    socket.targetroom.counter1 = 0;
-    socket.targetroom.counter2 = 0;
-  })
+  // socket.on("zero counters", () => {
+  //   socket.targetroom.counter1 = 0;
+  //   socket.targetroom.counter2 = 0;
+  // })
 
   socket.on("winner1", (countertest) => {
     countertest = socket.targetroom.counter1;
@@ -201,7 +180,7 @@ io.on('connection', (socket) => {
   socket.on("restart", (countertochange1, countertochange2) => {
     socket.targetroom.counter1 = 0;
     socket.targetroom.counter2 = 0;
-    io.to(socket.roomname).emit("restart")
+    io.to(socket.roomname).emit("restart", (countertochange1, countertochange2))
   })
 
   socket.on("start time", () => {
@@ -236,14 +215,11 @@ io.on('connection', (socket) => {
     socket.targetroom.counter2 = 0;
     io.to(socket.roomname).emit("restart")
     }
-
-  
     // counter1 = 0;
     // counter2 = 0;
   });
 
 });
-
 
 http.listen(port, () => {
   console.log(`Socket.IO server running at http://localhost:${port}/`);
