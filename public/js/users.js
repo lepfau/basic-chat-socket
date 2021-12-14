@@ -58,7 +58,7 @@ userform.addEventListener("submit", function (e) {
   e.preventDefault();
   if(username.value && roomnamefront.value) {
   socket.emit("join room", roomnamefront.value);
-  socket.emit("room infos", roominfos)
+  socket.emit("room infos", roominfos);
   teamchoice.style.visibility = "visible";
   userform.style.visibility = "hidden";
   maintitle.style.visibility = "hidden";
@@ -90,7 +90,6 @@ socket.on("room infos", roominfos => {
   team2infos.innerHTML = `${roominfos.team2.length} users (${roominfos.team2.toString()})`
   roomname.innerHTML = `ROOM #${roominfos.name}`
 })
-
 
 
 socket.on("new user", function (username) {

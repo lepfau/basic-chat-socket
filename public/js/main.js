@@ -39,15 +39,12 @@ let counter2front = 0;
 
 let roomnamefront = document.getElementById("roomname");
 
-let team1userslist = document.getElementById("team1userslist");
-
-
-
 startbutton.addEventListener("click", () => {
   gameinput.focus();
   socket.emit("launch game");
   setTimeout(() => {
     socket.emit("start time")
+
   }, 4000);
   
 })
@@ -81,8 +78,17 @@ socket.on("restart", (countertochange1, countertochange2) => {
 })
 
 
+var audio = new Audio('./../assets/smash ultimate 3 2 1 go green screen.mp3');
+
+var audio3 = new Audio("./../assets/Popular Epic Win Sound Effects HD_00_01_25-00_01_28 - oDownloader (1).mp3")
+
+
 ///////////////////////////////////////////////////////////
 socket.on("launch game", () => {
+  setTimeout(() => {
+    audio.play();
+  }, 400);
+  countdown.innerHTML = "GET READY...";
   let count = 4;
   let intervalId = setInterval(() => {
     count--;
@@ -97,6 +103,8 @@ socket.on("launch game", () => {
 
 socket.on("winner1", () => {
   countdown.innerHTML = "TEAM 1 WINS !!!"
+
+  audio3.play();
   chronoStop();
   socket.emit("stop time")
   //  socket.emit("restart", counter1front)
@@ -104,6 +112,8 @@ socket.on("winner1", () => {
 
 socket.on("winner2", () => {
   countdown.innerHTML = "TEAM 2 WINS !!!"
+
+  audio3.play();
   chronoStop();
   socket.emit("stop time")
   //  socket.emit("restart", counter2front)

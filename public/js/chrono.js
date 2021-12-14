@@ -60,3 +60,6 @@ function chronoStop(){
 	document.chronoForm.reset.onclick = chronoStopReset
 	clearTimeout(timerID)
 }
+
+
+

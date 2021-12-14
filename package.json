@@ -7,6 +7,7 @@
         "dotenv": "^10.0.0",
         "express": "^4.17.1",
         "firebase": "^9.5.0",
+        "fireworks-canvas": "^2.6.2",
         "keypress": "^0.2.1",
         "socket.io": "^4.4.0",
         "socket.io-client": "^4.4.0"

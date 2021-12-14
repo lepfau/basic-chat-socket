@@ -40,6 +40,7 @@ io.on('connection', (socket) => {
           team2: [],
           counter1: 0,
           counter2: 0,
+          readylist: []
     });
   }
   let targetedRoom = roomsListObject.find(room => room.name === socket.roomname);
@@ -51,6 +52,8 @@ io.on('connection', (socket) => {
     roominfos = targetedRoom;
     socket.emit("room infos", roominfos)
   })
+
+  
 
   //add user to users list array
   socket.on("add user", ({username: user, teamnumber: team}) => {
@@ -65,6 +68,12 @@ io.on('connection', (socket) => {
   //new user message on chat
   socket.on("new user", (username) => {
     io.to(socket.roomname).emit("new user", `${username} has join the chat`)
+  })
+
+  //ready list for start game
+  socket.on("ready list", () => {
+    socket.targetroom.readylist.push(socket.username);
+    console.log(socket.targetroom.readylist)
   })
 
   //send chat message 
