@@ -121,11 +121,11 @@ io.on('connection', (socket) => {
   });
 
   socket.on("increase counter1", () => {
-    socket.targetroom.counter1 += 5;
+    socket.targetroom.counter1 += 10;
   });
 
   socket.on("increase counter2", () => {
-    socket.targetroom.counter2 += 5;
+    socket.targetroom.counter2 += 10;
   });
 
   //sync counter1 with counter in front (differencier pour le socket on partie counter / hero)

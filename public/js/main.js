@@ -122,14 +122,14 @@ socket.on("sync counter1", (counter) => {
   countertag.innerHTML = "";
   let item = document.createElement("p");
   item.style.margin = "0px"
-  item.innerText = `${counter / 10} meters`
+  item.innerText = `${(counter / 7).toFixed(2)} meters`
   countertag.appendChild(item);
 })
 
 socket.on("sync counter2", (counter) => {
   countertag2.innerHTML = "";
   let item = document.createElement("p");
-  item.innerText = `${counter / 10} meters`
+  item.innerText = `${(counter / 7).toFixed(2)} meters`
   countertag2.appendChild(item);
 })
 

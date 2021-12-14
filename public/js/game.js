@@ -108,8 +108,9 @@ var doneTypingInterval = 300;  //time in ms, 5 second for example
 
 
 gameinput.addEventListener("input", () => {
-    console.log(team1list)
-    if (gameinput.value === "xc" && team1.checked && countdown.innerHTML === "GO !") {
+gameinput.value.toLowerCase();
+
+    if ((gameinput.value === "xc" || gameinput.value === "Xc" ||  gameinput.value === "XC"  || gameinput.value === "xC") && team1.checked && countdown.innerHTML === "GO !") {
         gameinput.value = "";
         socket.emit("increase counter1")
         socket.emit("sync counter1", counter1front)
@@ -117,7 +118,7 @@ gameinput.addEventListener("input", () => {
         socket.emit("sync counter2", counter2front)
     }
 
-    else if (gameinput.value === "xc" && team2.checked && countdown.innerHTML === "GO !") {
+    else if ((gameinput.value === "xc" || gameinput.value === "Xc" ||  gameinput.value === "XC"  || gameinput.value === "xC") && team2.checked && countdown.innerHTML === "GO !") {
         gameinput.value = "";
         socket.emit("increase counter2")
         socket.emit("sync counter1", counter1front)
