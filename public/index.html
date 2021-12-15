@@ -13,15 +13,18 @@
       <h3 class="users_list_title">Users online</h3>
       <ul id="users"></ul>
     </div> -->
-    <h1 id="main_title"><img class="title_gif1" src="./assets/dc1f5a697d31de36519e43fa58d38485.gif"/> RUN!RUN!RUN!<img class="title_gif" src="./assets/RepulsiveUltimateAardvark-max-1mb.gif"/></h1>
-    
+    <h1 id="main_title"><img class="title_gif1" src="./assets/dc1f5a697d31de36519e43fa58d38485.gif" /> RUN!RUN!RUN!<img
+        class="title_gif" src="./assets/RepulsiveUltimateAardvark-max-1mb.gif" /></h1>
+
     <form id="user_form" action="">
       <input id="username" placeholder="enter username" />
       <div style="color: firebrick" id="error_username"></div>
       <div style="display: flex; place-items: center;">
-      <input type="text" id="roomname" placeholder="enter room name" /> <img class="infos" style="height: 30px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Infobox_info_icon.svg/1024px-Infobox_info_icon.svg.png"/>
-      <div class="infotext" style="margin-top: 6px;">Room will be created if it does not exist. Otherwise you join a created room </div>  
-    </div>
+        <input type="text" id="roomname" placeholder="enter room name" /> <img class="infos" style="height: 30px;"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Infobox_info_icon.svg/1024px-Infobox_info_icon.svg.png" />
+        <div class="infotext" style="margin-top: 6px;">Room will be created if it does not exist. Otherwise you join a
+          created room </div>
+      </div>
       <button type="submit" class="play_button">Play</button>
     </form>
   </div>
@@ -29,21 +32,21 @@
   <div id="checkbox_container">
     <div id="checkbox_container_title"></div>
     <form id="teamchoice">
-    <h3 class="checkbox_title">Choose team</h3>
-    <div style="color: firebrick" id="error_team"></div>
-    <div class="checkbox_input">
-      <label class="labelteam" for="myCheck1">Team 1</label> 
-      <input type="checkbox" id="myCheck1" value="team1" />
-      <span id="team1infos"></span>
-    </div> 
-    <div class="checkbox_input">
-      <label class="labelteam" for="myCheck2">Team 2 </label> 
-      <input type="checkbox" id="myCheck2" value="team2" />
-      <span id="team2infos"></span>
-    </div> 
-    
-    <button class="play_button">Play</button>
-  </form>
+      <h3 class="checkbox_title">Choose team</h3>
+      <div style="color: firebrick" id="error_team"></div>
+      <div class="checkbox_input">
+        <label class="labelteam" for="myCheck1">Team 1</label>
+        <input type="checkbox" id="myCheck1" value="team1" />
+        <span id="team1infos"></span>
+      </div>
+      <div class="checkbox_input">
+        <label class="labelteam" for="myCheck2">Team 2 </label>
+        <input type="checkbox" id="myCheck2" value="team2" />
+        <span id="team2infos"></span>
+      </div>
+
+      <button class="play_button">Play</button>
+    </form>
 
   </div>
 
@@ -52,32 +55,34 @@
     <div id="restart"><button id="restart_button">↺</button></div>
     <h1 class="game_title">RUN!RUN!RUN!</h1>
     <div class="game_middle">
+      <div id="countertag">
+        <p style="margin: 0px" id="pcounter1">0</p>
+      </div>
+      <div id="countertag2">
+        <p style="margin: 0px" id="pcounter2">0 </p>
+      </div>
       <div class="teams_list">
+        <p class="time">TIME</p>
         <span id="chronotime">00:00:000</span>
         <form name="chronoForm" style="display: none">
           <input style="visibility: hidden;" type="button" name="startstop" value="start!" onClick="chronoStart()" />
           <input style="visibility: hidden;" type="button" name="reset" value="reset!" onClick="chronoReset()" />
         </form>
-       <hr>
-        <h3 class="team_title">Team 1</h3> 
+        <hr>
+        <h3 class="team_title">Team 1</h3>
         <!-- <button id="changeteam1">Change team</button> -->
         <ul id="team1list"></ul>
-
-        <div id="countertag">
-          <p style="margin: 0px" id="pcounter1">0</p>
-        </div>
-        <hr>
-        <h3 class="team_title">Team 2</h3> 
+ 
+        <h3 class="team_title">Team 2</h3>
         <!-- <button id="changeteam2">Change team</button> -->
         <ul id="team2list"></ul>
         <div class="user_list"></div>
 
-        <div id="countertag2">
-          <p style="margin: 0px" id="pcounter2">0 </p>
-        </div>
+    
       </div>
       <div class="canvasandinput">
-        <canvas id="canvasHolder" height="400px" width="800px"></canvas>
+        <canvas id="canvasHolder" height="400px" width="800px">
+        </canvas>
         <div class="input_keys">
           <div class="key_image_container">
             <img class="key_image" src="./assets/X1.webp" />

@@ -101,14 +101,31 @@
   height: 64px;
 }
 
+.time {
+  font-family: "sunny_spellsregular";
+  font-size: 30px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
 #countertag {
   font-family: "sunny_spellsregular";
   font-size: 32px;
+  position: absolute;
+    margin-bottom: 431px;
+    margin-left: 550px;
+    color: white;
+    text-shadow: 2px 2px 4px black;
 }
 
 #countertag2 {
   font-family: "sunny_spellsregular";
   font-size: 32px;
+  position: absolute;
+  margin-bottom: 32px;
+  margin-left: 550px;
+  color: white;
+  text-shadow: 2px 2px 4px black;
 }
 
 #game_input {
@@ -342,7 +359,7 @@ hr {
 }
 
 #checkbox_container_title {
-  font-family: "catchy_melodyregular";
+  font-family: "sunny_spellsregular";
     color: #e7dd5c;
     font-size: 50px;
     margin-bottom: 5px;
