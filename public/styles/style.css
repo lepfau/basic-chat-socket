@@ -53,7 +53,13 @@
 
 #chronotime {
   font-family: "sunny_spellsregular";
-  font-size: 58px;
+  font-size: 52px;
+}
+
+#roomname_game {
+  margin-bottom: 45px;
+  font-size: 34px;
+  font-family: "sunny_spellsregular";
 }
 
 #is_typing {

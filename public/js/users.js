@@ -89,6 +89,7 @@ socket.on("room infos", roominfos => {
   team1infos.innerHTML = `${roominfos.team1.length} users ( ${roominfos.team1.toString()} )`
   team2infos.innerHTML = `${roominfos.team2.length} users ( ${roominfos.team2.toString()} )`
   roomname.innerHTML = `ROOM #${roominfos.name}`
+  document.getElementById("roomname_game").innerHTML = `ROOM #${roominfos.name}`
 })
 
 
