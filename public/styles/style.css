@@ -19,11 +19,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
 
 #canvasHolder {
-  background: url("./../assets/City2tt.png");
-  background-size: 99% 94%;
+  background: url(./../assets/gabriel-gabas-x-pmwxv17xss1tctdo6o1-1280.jpg);
+  background-size: 59% 50%;
   border-radius: 5px;
   /* visibility: visible; */
   width: 65vw;
+  background-position-y: 0px;
   max-width: 793px;
 }
 

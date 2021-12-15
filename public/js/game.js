@@ -85,7 +85,7 @@ canvas = document.getElementById("canvasHolder");
 context = canvas.getContext("2d");
 hero = new GameObject(heroSpritesheet,  //the spritesheet image
     counter1front,            //x position of hero
-    200,            //y position of hero
+    50,            //y position of hero
     864 ,         //total width of spritesheet image in pixels
     140,          //total height of spritesheet image in pixels
     60,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
@@ -93,7 +93,7 @@ hero = new GameObject(heroSpritesheet,  //the spritesheet image
 
 hero2 = new GameObject(heroSpritesheet2,  //the spritesheet image
     counter2front,            //x position of hero
-    225,            //y position of hero
+    175,            //y position of hero
     1000 ,         //total width of spritesheet image in pixels
     157,          //total height of spritesheet image in pixels
     60,           //time(in ms) duration between each frame change (experiment with it to get faster or slower animation)
