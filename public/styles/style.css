@@ -23,6 +23,8 @@
   background-size: 99% 94%;
   border-radius: 5px;
   /* visibility: visible; */
+  width: 65vw;
+  max-width: 793px;
 }
 
 #error_username {
@@ -74,18 +76,19 @@
 #restart {
   visibility: hidden;
   position: absolute;
-  width: 175px;
+  width: 56px;
   display: flex;
-  align-self: flex-start;
+  align-self: center;
   align-items: flex-start;
+  /* left: 155px; */
   font-weight: 900;
   justify-content: flex-start;
   visibility: hidden;
   font-size: 77px;
   font-family: 'sunny_spellsregular';
-  margin-top: 46px;
+  margin-top: 44px;
   z-index: 999;
-  margin-left: 20px;
+  margin-left: 454px;
 }
 
 .input_keys {
@@ -212,13 +215,15 @@ hr {
   justify-content: space-around;
   height: 510px;
   margin-top: 8vh;
-  max-width: 1500px;
+  max-width: 1284px;
 }
 
 .teams_list {
   width: 12%;
   margin-bottom: 90px;
   margin-left: 6px;
+  color: white;
+  text-shadow: 1px 1px 2px black;
 }
 
 #chat_form {
@@ -272,6 +277,8 @@ hr {
   font-family: 'sunny_spellsregular';
   margin-top: 36px;
   z-index: 999;
+  color: white;
+  text-shadow: 1px 1px 2px black;
 }
 
 
