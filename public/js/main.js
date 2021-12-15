@@ -65,9 +65,11 @@ socket.on("restart", (countertochange1, countertochange2) => {
   socket.emit("stop hero2", counter2front)
   socket.emit("stop time");
   let item = document.createElement("BUTTON");
-  item.innerHTML = "START"
+  item.innerHTML = "START";
   item.setAttribute("id", "start_button");
   countdown.appendChild(item);
+  countdown.style.visibility = "visible";
+  countdown.style.marginTop = "36px"
   item.addEventListener("click", () => {
     socket.emit("launch game");
     setTimeout(() => {
@@ -88,6 +90,7 @@ socket.on("launch game", () => {
   setTimeout(() => {
     audio.play();
   }, 400);
+  countdown.style.marginTop = "234px";
   countdown.innerHTML = "GET READY...";
   let count = 4;
   let intervalId = setInterval(() => {
@@ -95,6 +98,9 @@ socket.on("launch game", () => {
     countdown.innerHTML = count;
     if(count <= 0) {
       clearInterval(intervalId);
+      setTimeout(() => {
+        countdown.style.visibility = "hidden"
+      }, 1000);
       countdown.innerHTML = "GO !"
     }
   }, 1000);
@@ -102,6 +108,8 @@ socket.on("launch game", () => {
 });
 
 socket.on("winner1", () => {
+  countdown.style.visibility = "visible";
+  countdown.style.marginTop = "151px";
   countdown.innerHTML = "TEAM 1 WINS !!!"
 
   audio3.play();
@@ -111,7 +119,9 @@ socket.on("winner1", () => {
 })
 
 socket.on("winner2", () => {
-  countdown.innerHTML = "TEAM 2 WINS !!!"
+  countdown.style.visibility = "visible";
+  countdown.style.marginTop = "350px";
+  countdown.innerHTML = "TEAM 2 WINS !!!";
 
   audio3.play();
   chronoStop();
