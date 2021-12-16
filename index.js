@@ -6,7 +6,7 @@ const { start } = require('repl');
 
 const port = process.env.PORT || 3000;
 
-const io = require("socket.io")(http, {
+const io = require("socket.io")("https://runrunrun.onrender.com", {
   cors: {
     origin: port,
     methods: ["GET", "POST"],
