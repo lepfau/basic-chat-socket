@@ -17,7 +17,6 @@ chatform.addEventListener("submit", function (e) {
     item.textContent = msg;
     messages.appendChild(item);
     messages.scrollTo(0, messages.scrollHeight)
-    // window.scrollTo(0, document.body.scrollHeight);
     istyping.innerHTML = "";
   });
 

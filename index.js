@@ -79,7 +79,6 @@ io.on('connection', (socket) => {
   //send chat message 
   socket.on('chat message', msg => {
     io.to(socket.roomname).emit('chat message', msg)
-   
   });
 
   //show user typing
