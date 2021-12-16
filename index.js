@@ -4,9 +4,9 @@ const http = require('http').Server(app);
 const path = require('path');
 const { start } = require('repl');
 
-const port = process.env.PORT || 3000;
+const port = "https://runrunrun.onrender.com";
 
-const io = require("socket.io")("https://runrunrun.onrender.com", {
+const io = require("socket.io")(http, {
   cors: {
     origin: port,
     methods: ["GET", "POST"],
